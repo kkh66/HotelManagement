@@ -1,0 +1,67 @@
+﻿body {
+}
+
+.wrapper{
+    height:700px;
+}
+.nav_custom {
+    background-color: black;
+    color: white;
+    height:50px;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.btn_offcanvas {
+    margin-left: 10px;
+    background-color: darkgray;
+    height: 40px;
+    width: 45px;
+    transform:translateY(-3px);
+}
+
+.profileimg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    right: 10px;
+    transform: translateY(-3px);
+    margin-left: -15px;
+}
+
+.ddl_customuser {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+    color: white;
+    border: none;
+    margin-right: 15px;
+}
+
+.ddl_useritem {
+    border-radius: 25px !important;
+    margin-top: 15px !important;
+    width: 100px !important;
+    transform: translateX(-10%);
+}
+
+    .ddl_useritem .dropdown-item {
+        border-radius: 25px !important;
+    }
+
+    .ddl_useritem:hover {
+        border-radius: 25px;
+    }
+
+    .ddl_useritem hr {
+        margin: 0;
+    }
+
+footer {
+    color:white;
+    background-color: black;
+    height:25px;
+}

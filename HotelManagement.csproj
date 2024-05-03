@@ -91,6 +91,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AddRoom.aspx" />
+    <Content Include="Admin\AddStaff.aspx" />
+    <Content Include="Admin\Script.js" />
+    <Content Include="Admin\Style.css" />
     <Content Include="App_Data\Hotel.mdf" />
     <Content Include="App_Data\Hotel_log.ldf">
       <DependentUpon>Hotel.mdf</DependentUpon>
@@ -115,6 +119,7 @@
     <Content Include="img\about-1.jpg" />
     <Content Include="img\about-2.jpg" />
     <Content Include="img\about-bg.jpg" />
+    <Content Include="img\Admin.jpg" />
     <Content Include="img\BG-RegisterHotel.png" />
     <Content Include="img\carosel-1.png" />
     <Content Include="img\carosel-2.png" />
@@ -132,10 +137,23 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Style.css" />
-    <Content Include="testpayfunction.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddRoom.aspx.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddRoom.aspx.designer.cs">
+      <DependentUpon>AddRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddStaff.aspx.cs">
+      <DependentUpon>AddStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddStaff.aspx.designer.cs">
+      <DependentUpon>AddStaff.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -143,6 +161,7 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="AutoGenerator.cs" />
     <Compile Include="Book.Master.cs">
       <DependentUpon>Book.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -164,13 +183,6 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="testpayfunction.aspx.cs">
-      <DependentUpon>testpayfunction.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="testpayfunction.aspx.designer.cs">
-      <DependentUpon>testpayfunction.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
