@@ -14,7 +14,7 @@ namespace HotelManagement.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Login"] != null)
+            /*if (Session["Login"] != null)
             {
                 string empId = Session["Login"].ToString();
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
@@ -42,7 +42,7 @@ namespace HotelManagement.Admin
             else
             {
                 Response.Redirect("Login.aspx");
-            }
+            }*/
         }
     }
 }

@@ -58,10 +58,27 @@ namespace HotelManagement
                     }
                     else
                     {
+                        if (usernameExists)
+                        {
+                            lblerror.Text = "Username already exists!";
+                            return;
+                        }
+
+                        if (emailExists)
+                        {
+                            lblmail.Text = "Email already exists!";
+                            return;
+                        }
 
                         if (string.IsNullOrEmpty(name))
                         {
                             lblcususe.Text = "Username is required.";
+                            txtcustomeruser.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
+                        else if (name.Length < 8)
+                        {
+                            lblcususe.Text = "Username must be at least 8 characters.";
                             txtcustomeruser.CssClass += " is-invalid animate__animated animate__headShake";
                             hasEmptyFields = true;
                         }
@@ -70,15 +87,43 @@ namespace HotelManagement
                             txtcustomeruser.CssClass += " is-valid";
                         }
 
+                        if (string.IsNullOrEmpty(password))
+                        {
+                            lblpass.Text = "Password is required.";
+                            txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
+                        else if (!CallUse.IsValidPassword(password))
+                        {
+                            lblpass.Text = "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+                            txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
+                        else if (!CallUse.passwordmatch(password, confirm))
+                        {
+                            lblconfitmpass.Text = "Password does not match.";
+                            txtpassword.CssClass = txtpassword.CssClass.Replace("is-valid", "");
+                            txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
+                            txtconfirmpass.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
+                        else
+                        {
+                            txtpassword.CssClass = txtpassword.CssClass.Replace("is-invalid", "");
+                            txtpassword.CssClass += " is-valid";
+                            txtconfirmpass.CssClass = txtconfirmpass.CssClass.Replace("is-invalid", "");
+                            txtconfirmpass.CssClass += " is-valid";
+                        }
+
                         if (string.IsNullOrEmpty(email))
                         {
-                            labelmail.Text = "Email is required.";
+                            lblmail.Text = "Email is required.";
                             txtemail.CssClass += " is-invalid animate__animated animate__headShake";
                             hasEmptyFields = true;
                         }
-                        else if (!IsValidEmail(email))
+                        else if (!CallUse.IsValidemail(email))
                         {
-                            labelmail.Text = "Invalid email format.";
+                            lblmail.Text = "Invalid email format.";
                             txtemail.CssClass += " is-invalid animate__animated animate__headShake";
                             hasEmptyFields = true;
                         }
@@ -86,7 +131,11 @@ namespace HotelManagement
                         {
                             txtemail.CssClass += " is-valid";
                         }
-
+                        if (ddlgender.SelectedValue == "0")
+                        {
+                            lblgender.Text = "Please Select a gender";
+                            hasEmptyFields = true;
+                        }
                         if (string.IsNullOrEmpty(dateofbirth))
                         {
                             lblDateofBirth.Text = "Date of birth is required.";
@@ -102,18 +151,26 @@ namespace HotelManagement
                         {
                             return;
                         }
-
-                        if (usernameExists)
+                        string hashedPassword = AutoGenerator.GenerateHashedPassword(password, salt);
+                        using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            lblerror.Text = "Username already exists!";
-                            return;
-                        }
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand("INSERT INTO Customer (CustomerID, Username, Password, Email, Gender, DateOfBirth, Salt) VALUES (@CustomerID, @Username, @Password, @Email, @Gender, @DateOfBirth, @Salt)", connection))
+                            {
+                                command.Parameters.AddWithValue("@CustomerID", CusId);
+                                command.Parameters.AddWithValue("@Username", name);
+                                command.Parameters.AddWithValue("@Password", hashedPassword);
+                                command.Parameters.AddWithValue("@Email", email);
+                                command.Parameters.AddWithValue("@Gender", gender);
+                                command.Parameters.AddWithValue("@DateOfBirth", dateofbirth);
+                                command.Parameters.AddWithValue("@Salt", salt);
+                                command.ExecuteNonQuery();
+                            }
 
-                        if (emailExists)
-                        {
-                            lblerror.Text = "Email already exists!";
-                            return;
                         }
+                        lblerror.Text = "Registration successful!";
+                        btnSubmit.CssClass = "loader";
+                        btnSubmit.Text = "Loading...";
                     }
                 }
                 else
@@ -150,19 +207,6 @@ namespace HotelManagement
                     int count = (int)command.ExecuteScalar();
                     return count > 0;
                 }
-            }
-        }
-        //check valid email
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
             }
         }
     }

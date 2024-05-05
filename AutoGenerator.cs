@@ -10,12 +10,6 @@ namespace HotelManagement
 {
     public class AutoGenerator
     {
-        //check valid password
-        public static bool IsValidPassword(string password)
-        {
-            Regex regex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-            return regex.IsMatch(password);
-        }
         //generate salt
         public static string GenerateSalt()
         {

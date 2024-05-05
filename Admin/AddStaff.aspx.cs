@@ -100,7 +100,7 @@ namespace HotelManagement.Admin
                 lblwarnpass.Text = "Password is required.";
                 hasEmptyFields = true;
             }
-            else if (!autoGenerator.IsValidPassword(password))
+            else if (!CallUse.IsValidPassword(password))
             {
                 lblwarnpass.Text = "Invalid password. It must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.";
                 return;

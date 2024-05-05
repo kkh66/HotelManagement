@@ -60,13 +60,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtpassword;
 
         /// <summary>
-        /// labelpass control.
+        /// lblpass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelpass;
+        protected global::System.Web.UI.WebControls.Label lblpass;
 
         /// <summary>
         /// txtconfirmpass control.
@@ -78,13 +78,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtconfirmpass;
 
         /// <summary>
-        /// labelconfitmpass control.
+        /// lblconfitmpass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelconfitmpass;
+        protected global::System.Web.UI.WebControls.Label lblconfitmpass;
 
         /// <summary>
         /// txtemail control.
@@ -96,13 +96,22 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtemail;
 
         /// <summary>
-        /// labelmail control.
+        /// lblmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelmail;
+        protected global::System.Web.UI.WebControls.Label lblmail;
+
+        /// <summary>
+        /// lblgender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblgender;
 
         /// <summary>
         /// ddlgender control.
@@ -114,13 +123,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.DropDownList ddlgender;
 
         /// <summary>
-        /// lblgender control.
+        /// lblwarngender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblgender;
+        protected global::System.Web.UI.WebControls.Label lblwarngender;
 
         /// <summary>
         /// txtDateofBirth control.

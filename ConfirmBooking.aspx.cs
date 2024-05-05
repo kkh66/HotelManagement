@@ -13,5 +13,10 @@ namespace HotelManagement
         {
 
         }
+
+        protected void btnbook_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
