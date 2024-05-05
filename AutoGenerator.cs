@@ -11,7 +11,7 @@ namespace HotelManagement
     public class AutoGenerator
     {
         //check valid password
-        public bool IsValidPassword(string password)
+        public static bool IsValidPassword(string password)
         {
             Regex regex = new Regex(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
             return regex.IsMatch(password);

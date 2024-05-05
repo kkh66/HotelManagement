@@ -93,12 +93,18 @@
   <ItemGroup>
     <Content Include="Admin\AddRoom.aspx" />
     <Content Include="Admin\AddStaff.aspx" />
+    <Content Include="Admin\Home.aspx" />
+    <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Script.js" />
     <Content Include="Admin\Style.css" />
+    <Content Include="Admin\ViewRoom.aspx" />
+    <Content Include="Admin\ViewStaff.aspx" />
     <Content Include="App_Data\Hotel.mdf" />
     <Content Include="App_Data\Hotel_log.ldf">
       <DependentUpon>Hotel.mdf</DependentUpon>
     </Content>
+    <Content Include="Booking.aspx" />
+    <Content Include="ConfirmBooking.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -126,6 +132,8 @@
     <Content Include="img\carosel-3.png" />
     <Content Include="img\carosel-4.png" />
     <Content Include="img\Delexu.jpg" />
+    <Content Include="img\DeluxeBath.jpg" />
+    <Content Include="img\DeluxeRoom.jpg" />
     <Content Include="img\famaily.jpg" />
     <Content Include="img\Luxurysuite.jpg" />
     <Content Include="img\RegisterHotel.png" />
@@ -161,6 +169,34 @@
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewRoom.aspx.cs">
+      <DependentUpon>ViewRoom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewRoom.aspx.designer.cs">
+      <DependentUpon>ViewRoom.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewStaff.aspx.cs">
+      <DependentUpon>ViewStaff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewStaff.aspx.designer.cs">
+      <DependentUpon>ViewStaff.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AutoGenerator.cs" />
     <Compile Include="Book.Master.cs">
       <DependentUpon>Book.Master</DependentUpon>
@@ -168,6 +204,21 @@
     </Compile>
     <Compile Include="Book.Master.designer.cs">
       <DependentUpon>Book.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Booking.aspx.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Booking.aspx.designer.cs">
+      <DependentUpon>Booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CallUse.cs" />
+    <Compile Include="ConfirmBooking.aspx.cs">
+      <DependentUpon>ConfirmBooking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmBooking.aspx.designer.cs">
+      <DependentUpon>ConfirmBooking.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

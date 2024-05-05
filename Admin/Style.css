@@ -1,13 +1,164 @@
 ﻿body {
 }
 
-.wrapper{
-    height:700px;
-}
+
 .nav_custom {
     background-color: black;
     color: white;
-    height:50px;
+    height: 50px;
+}
+
+.card_staff {
+    width: 500px;
+    margin: 50px;
+    height: auto;
+    border-radius: 35px;
+    background-color: #221E1D;
+}
+
+    .card_staff h3 {
+        text-align: center;
+        color: white;
+    }
+
+.text_staff {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+    .text_staff label {
+        color: white;
+        background-color: transparent !important;
+    }
+
+    .text_staff input {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+.card_login {
+    border-radius: 35px;
+    height: 300px;
+    width: 300px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 0 0 3px 0 rgba(255, 255, 255, 0.7);
+}
+
+    .card_login h3 {
+        text-align: center;
+    }
+
+.text_login {
+    height: 45px;
+    background-color: transparent !important;
+    color: white !important;
+}
+
+    .text_login input {
+        background-color: transparent !important;
+        color: white !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-top: 0 !important;
+    }
+
+        .text_login input:active {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+            border-top: 0 !important;
+            box-shadow: 0 0 5px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .text_login input:focus {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+            border-top: 0 !important;
+            box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        .text_login input:hover {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+            border-top: 0 !important;
+            box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .text_login input::after {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+            border-right: 0 !important;
+            border-top: 0 !important;
+            box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+    .text_login label {
+        background-color: transparent !important;
+        color: white !important;
+        border-left: 0 !important;
+        font-size: 16px !important;
+    }
+
+        .text_login label:hover {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+            font-size: 16px;
+        }
+
+        .text_login label:active {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+        }
+
+        .text_login label::after {
+            background-color: transparent !important;
+            color: white !important;
+            border-left: 0 !important;
+        }
+
+.btn_login {
+    border-radius: 25px;
+    background-color: rgba(128, 0, 128, 0.2);
+    border: 0;
+}
+
+    .btn_login:hover {
+        background-color: rgba(128, 0, 128, 0.4) !important;
+        border: 0;
+    }
+
+    .btn_login:active {
+        background-color: rgba(128, 0, 128, 0.4) !important;
+        border: 0;
+    }
+
+.staffbtn {
+    width: 300px;
+    background-color: gold;
+    color: black;
+    border-radius: 35px;
+    margin-left: 85px;
+    margin-right: 65px;
+}
+
+.custom-dropdown {
+    background-color: transparent !important;
+    color: white !important;
+    border-radius: 15px !important;
+    width: 200px !important;
+    text-align: center !important;
 }
 
 .navbar-brand {
@@ -19,7 +170,7 @@
     background-color: darkgray;
     height: 40px;
     width: 45px;
-    transform:translateY(-3px);
+    transform: translateY(-3px);
 }
 
 .profileimg {
@@ -41,6 +192,8 @@
     margin-right: 15px;
 }
 
+
+
 .ddl_useritem {
     border-radius: 25px !important;
     margin-top: 15px !important;
@@ -61,7 +214,7 @@
     }
 
 footer {
-    color:white;
+    color: white;
     background-color: black;
-    height:25px;
+    height: 25px;
 }
