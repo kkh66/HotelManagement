@@ -1,9 +1,13 @@
-﻿$(document).ready(function () {
-    $('#txtDateofBirth').datepicker({
-        dateFormat: "yy/mm/dd",
-        changeYear: true,
-        changeMonth: true,
-        yearRange: "1900:2006",
+﻿//date of birth for register
+document.addEventListener("DOMContentLoaded", function () {
+    flatpickr("#txtDateofBirth", {
+        dateFormat: "d-m-Y",
+        maxDate: new Date().setFullYear(new Date().getFullYear() - 18),
     });
-    $('#txtDateofBirth').datepicker("setDate", new Date("2000-01-01"));
 });
+
+//Remove the error message after 3 seconds
+function removeErrorMessage() {
+    $('#lblRegError, #lblerror, #lblDateofBirth, #lblcususe, #lblpass, #lblconfitmpass, #lblmail').remove();
+}
+setTimeout(removeErrorMessage, 3000);

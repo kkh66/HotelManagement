@@ -1,15 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="ViewRoom.aspx.cs" Inherits="HotelManagement.Admin.ViewRoom" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script type="text/javascript">
-        function setEditRoomId(roomId) {
-            document.getElementById('<%= hfEditRoomId.ClientID %>').value = roomId;
-        }
-
-        function setDeleteRoomId(roomId) {
-            document.getElementById('<%= hfDeleteRoomId.ClientID %>').value = roomId;
-        }
-    </script>
     <style>
         body {
             background-color: black;

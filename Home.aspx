@@ -113,6 +113,7 @@
                         </p>
                     </div>
                     <a href="BookingPage.aspx" class="btn btn-primary" style="background-color: #44484f; color: azure;">Rm799<span>/night</span></a>
+                    <asp:Button ID="btnluxury" runat="server" Text="Rm799/night" CssClass="btn btn-primary" OnClick="btnluxury_Click" />
                 </div>
             </div>
         </div>

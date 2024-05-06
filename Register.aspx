@@ -8,7 +8,8 @@
     <link href="Style.css" rel="stylesheet" />
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <script src="Script.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -16,67 +17,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/theme.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         body {
             background-image: url('/img/RegisterHotel.png');
             background-size: cover;
             min-height: 100vh;
-        }
-
-        .ui-datepicker {
-            background-color: darkslateblue !important;
-            color: white !important;
-            border-radius: 25px;
-        }
-
-            .ui-datepicker select {
-                background-color: transparent;
-                color: white !important;
-            }
-
-            .ui-datepicker table a {
-                background-color: #421987 !important;
-                color: white !important;
-            }
-
-            .ui-datepicker .ui-datepicker-header {
-                background-color: transparent;
-                color: white;
-                border: 0px;
-            }
-
-                .ui-datepicker .ui-datepicker-header a {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .ui-datepicker .ui-datepicker-header span {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-            .ui-datepicker .ui-datepicker-prev,
-            .ui-datepicker .ui-datepicker-next {
-                background-color: transparent !important;
-                color: white !important;
-                border: 0;
-            }
-
-        .ui-icon {
-            background-image: none;
-        }
-
-        .ui-icon-circle-triangle-w {
-            background-color: transparent;
-            color: #ffffff !important;
-        }
-
-        .ui-icon-circle-triangle-e {
-            background-color: transparent;
-            color: #ffffff !important;
-            fill: white !important;
         }
 
         .reg_card {
@@ -213,22 +159,22 @@
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtcustomeruser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
                         <label for="txtcustomeruser">Username</label>
-                        <asp:Label ID="lblcususe" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblcususe" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtpassword" runat="server" CssClass="form-control" placeholder="" TextMode="Password"></asp:TextBox>
                         <label for="txtpassword">Password</label>
-                        <asp:Label ID="lblpass" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblpass" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtconfirmpass" runat="server" CssClass="form-control" placeholder="" TextMode="Password"></asp:TextBox>
                         <label for="txtconfirmpass">Confirm Password</label>
-                        <asp:Label ID="lblconfitmpass" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblconfitmpass" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtemail" runat="server" CssClass="form-control" placeholder="" TextMode="email"></asp:TextBox>
                         <label for="txtemail">Email</label>
-                        <asp:Label ID="lblmail" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblmail" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="mb-2 mt-2 custom_regddl">
                         <asp:Label ID="lblgender" runat="server" Text="Gender :" AssociatedControlID="ddlgender" class="dropdown"></asp:Label>
@@ -237,10 +183,9 @@
                             <asp:ListItem Value="1">Male</asp:ListItem>
                             <asp:ListItem Value="2">Female</asp:ListItem>
                         </asp:DropDownList>
-                        <asp:Label ID="lblwarngender" runat="server" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
-                        <asp:TextBox ID="txtDateofBirth" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
+                        <asp:TextBox ID="txtDateofBirth" runat="server" CssClass="form-control flatpickr-input" placeholder="" ClientIDMode="Static"></asp:TextBox>
                         <label for="txtDateofBirth">Date of Birth</label>
                         <asp:Label ID="lblDateofBirth" runat="server" Text=""></asp:Label>
                     </div>

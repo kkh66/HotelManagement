@@ -39,8 +39,8 @@ namespace HotelManagement
             string salt = AutoGenerator.GenerateSalt();
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             bool hasEmptyFields = false;
-            bool usernameExists = CheckUsernameExists(connectionString, name);
-            bool emailExists = CheckEmailExists(connectionString, email);
+            bool usernameExists = CallUse.CheckUsernameExists(connectionString, name);
+            bool emailExists = CallUse.CheckEmailExists(connectionString, email);
 
 
             if (Request.Form["cf-turnstile-response"] != null)
@@ -55,14 +55,11 @@ namespace HotelManagement
                     if (!verifyResult.IsSuccess)
                     {
                         lblerror.Text = "There is a problem with the captcha result.";
+                        lblerror.CssClass = "text-danger";
                     }
                     else
                     {
-                        if (usernameExists)
-                        {
-                            lblerror.Text = "Username already exists!";
-                            return;
-                        }
+
 
                         if (emailExists)
                         {
@@ -82,6 +79,12 @@ namespace HotelManagement
                             txtcustomeruser.CssClass += " is-invalid animate__animated animate__headShake";
                             hasEmptyFields = true;
                         }
+                        else if (usernameExists)
+                        {
+                            lblcususe.Text = "Username already exists!";
+                            txtcustomeruser.CssClass += " is-invalid animate__animated animate__headShake";
+                            return;
+                        }
                         else
                         {
                             txtcustomeruser.CssClass += " is-valid";
@@ -99,6 +102,23 @@ namespace HotelManagement
                             txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
                             hasEmptyFields = true;
                         }
+                        else
+                        {
+                            txtpassword.CssClass = "is-valid";
+                        }
+
+                        if (string.IsNullOrEmpty(confirm))
+                        {
+                            lblconfitmpass.Text = "Confirm Password is required.";
+                            txtconfirmpass.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
+                        else if (!CallUse.IsValidPassword(confirm))
+                        {
+                            lblconfitmpass.Text = "Confirm Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character.";
+                            txtconfirmpass.CssClass += " is-invalid animate__animated animate__headShake";
+                            hasEmptyFields = true;
+                        }
                         else if (!CallUse.passwordmatch(password, confirm))
                         {
                             lblconfitmpass.Text = "Password does not match.";
@@ -109,11 +129,9 @@ namespace HotelManagement
                         }
                         else
                         {
-                            txtpassword.CssClass = txtpassword.CssClass.Replace("is-invalid", "");
-                            txtpassword.CssClass += " is-valid";
-                            txtconfirmpass.CssClass = txtconfirmpass.CssClass.Replace("is-invalid", "");
                             txtconfirmpass.CssClass += " is-valid";
                         }
+
 
                         if (string.IsNullOrEmpty(email))
                         {
@@ -130,21 +148,6 @@ namespace HotelManagement
                         else
                         {
                             txtemail.CssClass += " is-valid";
-                        }
-                        if (ddlgender.SelectedValue == "0")
-                        {
-                            lblgender.Text = "Please Select a gender";
-                            hasEmptyFields = true;
-                        }
-                        if (string.IsNullOrEmpty(dateofbirth))
-                        {
-                            lblDateofBirth.Text = "Date of birth is required.";
-                            txtDateofBirth.CssClass += " is-invalid animate__animated animate__headShake";
-                            hasEmptyFields = true;
-                        }
-                        else
-                        {
-                            txtDateofBirth.CssClass += " is-valid";
                         }
 
                         if (hasEmptyFields)
@@ -179,35 +182,7 @@ namespace HotelManagement
                 }
             }
 
+        }
 
-
-        }
-        private bool CheckUsernameExists(string connectionString, string username)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Customer WHERE Username = @Username", connection))
-                {
-                    command.Parameters.AddWithValue("@Username", username);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
-        //check email exits or not
-        private bool CheckEmailExists(string connectionString, string email)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Customer WHERE Email = @Email", connection))
-                {
-                    command.Parameters.AddWithValue("@Email", email);
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
     }
 }

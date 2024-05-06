@@ -34,5 +34,21 @@ namespace HotelManagement
             }
             return builder.ToString();
         }
+        public static string GenerateOTP()
+        {
+            string characters = "1234567890";
+            string otp = string.Empty;
+            for (int i = 0; i < 6; i++)
+            {
+                string character = string.Empty;
+                do
+                {
+                    int index = new Random().Next(0, characters.Length);
+                    character = characters.ToCharArray()[index].ToString();
+                } while (otp.IndexOf(character) != -1);
+                otp += character;
+            }
+            return otp;
+        }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
@@ -13,101 +16,137 @@ namespace HotelManagement
 {
     public partial class Testing : System.Web.UI.Page
     {
-        private static string PaypalclientId = System.Configuration.ConfigurationManager.AppSettings["PaypalClientID"];
-        private static string PaypalclientSecret = System.Configuration.ConfigurationManager.AppSettings["PaypalSecretkey"];
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString != null && Request.QueryString.Count != 0)
-            {
-                string approvalToken = Request.QueryString["token"];
-                var response = Task.Run(async () => await captureOrder(approvalToken));
 
-                if (response.Result != null)
+        }
+        protected void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            string otp = txtOtp.Text.Trim();
+            string newPassword = txtpassword.Text.Trim();
+            string confirmPassword = txtconfirm.Text.Trim();
+
+            bool checkmatchpassword = CallUse.passwordmatch(newPassword, confirmPassword);
+            // Check if the OTP is correct and not expired
+            if (ValidateOTP(otp) && !IsOTPExpired())
+            {
+                // Check if the new password and confirm password match
+                if (checkmatchpassword)
                 {
-                    Order result = response.Result.Result<Order>();
-                    Label1.Text = result.Status;
-                    if (result.Status.ToLower() == "approved")
-                    {
-                        // 付款成功后的处理逻辑，如保存订单信息等
-                    }
+                    // Generate a salt and hash the new password
+                    string salt = AutoGenerator.GenerateSalt();
+                    string hashedPassword = AutoGenerator.GenerateHashedPassword(newPassword, salt);
+
+                    // Update the user's password in the database
+                    UpdatePassword(txtusername.Text.Trim(), hashedPassword, salt);
+
+                    // Display a success message
+                    lblerror.Text = "Password reset successfully.";
                 }
                 else
                 {
-                    // 处理空响应的错误
+                    // Display an error message
+                    lblerror.Text = "New password and confirm password do not match.";
+                }
+            }
+            else
+            {
+                // Display an error message
+                lblerror.Text = "Invalid or expired OTP.";
+            }
+        }
+
+        protected void BtnSendOtp_Click(object sender, EventArgs e)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            string username = txtusername.Text.Trim();
+            string email = txtmail.Text.Trim();
+
+            bool isValidUser = CallUse.CheckUsernameExists(connectionString, username);
+            bool isValidemail = CallUse.CheckEmailExists(connectionString, email);
+
+            if (isValidUser && isValidemail)
+            {
+                string otp = AutoGenerator.GenerateOTP();
+                SendOTPEmail(email, otp);
+
+                divUsername.Visible = false;
+                divEmail.Visible = false;
+
+                divOtp.Visible = true;
+                divPassword.Visible = true;
+                divConfirm.Visible = true;
+                BtnSubmit.Visible = true;
+
+                Session["OTPExpiration"] = DateTime.Now.AddMinutes(15);
+            }
+            else
+            {
+                lblerror.Text = "Invalid username or email.";
+            }
+        }
+        private bool ValidateOTP(string otp)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            string username = txtusername.Text.Trim();
+
+            return CallUse.CheckOTP(connectionString, username, otp);
+        }
+        private bool IsOTPExpired()
+        {
+            if (Session["OTPExpiration"] != null)
+            {
+                DateTime otpExpiration = (DateTime)Session["OTPExpiration"];
+                return DateTime.Now > otpExpiration;
+            }
+            return true;
+        }
+        private void UpdatePassword(string username, string hashedPassword, string salt)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "UPDATE Customer SET Password = @HashedPassword, Salt = @Salt WHERE Username = @Username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@HashedPassword", hashedPassword);
+                    command.Parameters.AddWithValue("@Salt", salt);
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    command.ExecuteNonQuery();
                 }
             }
         }
-        public async static Task<string> createOrder()
-        {
-            var order = new OrderRequest()
-            {
-                CheckoutPaymentIntent = "CAPTURE",
-                PurchaseUnits = new List<PurchaseUnitRequest>()
-                {
-                    new PurchaseUnitRequest()
-                    {
-                        AmountWithBreakdown = new AmountWithBreakdown()
-                        {
-                            CurrencyCode = "MYR",
-                            Value = "100.00" // 设置总价值为 100.00 MYR
-                        }
-                    }
-                },
-                ApplicationContext = new ApplicationContext()
-                {
-                    ReturnUrl = "https://localhost:44384/Default.aspx",
-                    CancelUrl = "https://localhost:44384/Default.aspx"
-                }
-            };
-
-            var request = new OrdersCreateRequest();
-            request.Prefer("return=representation");
-            request.RequestBody(order);
-            var environment = new SandboxEnvironment(PaypalclientId, PaypalclientSecret);
-            var response = await (new PayPalHttpClient(environment).Execute(request));
-            Order result = response.Result<Order>();
-
-            return GetApprovalUrl(result);
-        }
-
-        public async static Task<PayPalHttp.HttpResponse> captureOrder(string token)
-        {
-            var request = new OrdersCaptureRequest(token);
-            request.RequestBody(new OrderActionRequest());
-            var environment = new SandboxEnvironment(PaypalclientId, PaypalclientSecret);
-            var response = await (new PayPalHttpClient(environment).Execute(request));
-            Order result = response.Result<Order>();
-
-            return response;
-        }
-
-        public static string GetApprovalUrl(Order result)
-        {
-            if (result.Links != null)
-            {
-                LinkDescription approvalLink = result.Links.Find(link => link.Rel.ToLower() == "approve");
-                if (approvalLink != null)
-                {
-                    return approvalLink.Href;
-                }
-            }
-
-            return "https://www.example.com";
-        }
-        protected void Button1_Click(object sender, EventArgs e)
+        private void SendOTPEmail(string email, string otp)
         {
             try
             {
-                Label1.Text = "订单已创建。";
-                var response = Task.Run(async () => await createOrder());
-                Response.Redirect(response.Result);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(email);
+                mail.From = new MailAddress(ConfigurationManager.AppSettings["email"]);
+                mail.Subject = "Reset Password OTP";
+                string Body = "Your OTP for resetting is " + otp
+                + ". This code will expires in 15 minutes.";
+                mail.Body = Body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = ConfigurationManager.AppSettings["Host"];
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["email"], ConfigurationManager.AppSettings["password"]);
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
             }
             catch (Exception ex)
             {
-                // 记录异常信息或执行其他适当的错误处理操作
-                Console.WriteLine("发生异常：" + ex.Message);
-                // 如果需要，在页面上显示错误消息
-                Label1.Text = "发生异常：" + ex.Message;
+                // Handle any exceptions that occurred during email sending
+                // You can log the exception or display an error message to the user
+                lblerror.Text = "Error sending OTP email: " + ex.Message;
             }
         }
     }

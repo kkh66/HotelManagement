@@ -33,6 +33,15 @@ namespace HotelManagement
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Profilelink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink Profilelink;
+
+        /// <summary>
         /// Registerlink control.
         /// </summary>
         /// <remarks>
@@ -105,15 +114,6 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.Label checklopass;
 
         /// <summary>
-        /// checremenber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox checremenber;
-
-        /// <summary>
         /// lblRemenber control.
         /// </summary>
         /// <remarks>
@@ -121,15 +121,6 @@ namespace HotelManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemenber;
-
-        /// <summary>
-        /// Forpasslink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Forpasslink;
 
         /// <summary>
         /// CloseLogin control.
@@ -148,41 +139,5 @@ namespace HotelManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Loginbtn;
-
-        /// <summary>
-        /// txtResetEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtResetEmail;
-
-        /// <summary>
-        /// txtresetuser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtresetuser;
-
-        /// <summary>
-        /// CloseForgot control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CloseForgot;
-
-        /// <summary>
-        /// btnforpass control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnforpass;
     }
 }

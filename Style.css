@@ -13,6 +13,51 @@
     --logo-u: #f1f500;
 }
 
+.login_modal .modal-content {
+    backdrop-filter: blur(0px) saturate(0%);
+    -webkit-backdrop-filter: blur(0px) saturate(0%);
+    background-color: rgba(44, 45, 50, 1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white;
+}
+
+.login_modal .modal-header {
+    padding-top: 13px;
+    padding-bottom: 10px;
+}
+
+    .login_modal .modal-header .btn-close {
+        background-color: transparent;
+    }
+
+.login_modal .modal-body input {
+    background-color: transparent;
+    color: white;
+}
+
+.login_modal .modal-body label {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+    .login_modal .modal-body label::after {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+
+.login_modal .modal-body span {
+    background-color: transparent;
+    color: white;
+    border: 0;
+}
+
+.login_modal .modal-footer {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .centered-content {
     display: flex;
     justify-content: center;

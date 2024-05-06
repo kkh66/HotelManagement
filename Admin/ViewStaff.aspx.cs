@@ -109,6 +109,9 @@ namespace HotelManagement.Admin
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeDeleteModal();", true);
         }
 
+        protected void gvStaff_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

@@ -4,35 +4,82 @@
     <style>
         .wrapper {
             min-height: 100vh;
-        }
-    </style>
-    <script>
-        function setEditEmpID(empID) {
-            document.getElementById('<%= hfEditEmpID.ClientID %>').value = empID;
+            background-color: black;
         }
 
-        function setDeleteEmpID(empID) {
-            document.getElementById('<%= hfDeleteEmpID.ClientID %>').value = empID;
+        .wrapper {
+            min-height: 100vh;
+            background-color: black;
         }
-    </script>
+
+        /* Style the entire GridView */
+        .table_view_staff {
+            background-image: linear-gradient(135deg, #3B2667 10%, #BC78EC 100%) !important;
+            border-radius: 12px; /* Add rounded corners */
+            overflow: hidden; /* Ensure content doesn't overflow rounded corners */
+        }
+
+            /* Style GridView headers */
+            .table_view_staff th {
+                background-color: transparent;
+                color: white;
+                font-weight: bold;
+            }
+
+            /* Style GridView rows */
+            .table_view_staff tr {
+                background-color: transparent;
+            }
+
+                /* Style selected GridView rows */
+                .table_view_staff tr.selected {
+                    background-color: #3B2667;
+                    color: white;
+                }
+
+            /* Style GridView cells */
+            .table_view_staff td {
+                padding: 5px;
+            }
+
+            /* Style GridView footer */
+            .table_view_staff tfoot {
+                background-color: white;
+            }
+
+            /* Style GridView pager */
+            .table_view_staff .pager {
+                color: #3B2667;
+                text-align: center;
+            }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container">
+    <div class="container view_staff">
         <h2>Staff List</h2>
-        <asp:GridView ID="gvStaff" runat="server" AutoGenerateColumns="False" CssClass="table table-striped">
-            <columns>
+        <asp:GridView ID="gvStaff" runat="server" AutoGenerateColumns="False" CssClass="table table_view_staff" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2">
+            <Columns>
                 <asp:BoundField DataField="Username" HeaderText="Username" />
                 <asp:BoundField DataField="Name" HeaderText="Name" />
                 <asp:BoundField DataField="Role" HeaderText="Role" />
                 <asp:BoundField DataField="Age" HeaderText="Age" />
                 <asp:BoundField DataField="Gender" HeaderText="Gender" />
                 <asp:TemplateField>
-                    <itemtemplate>
+                    <ItemTemplate>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="setEditEmpID('<%# Eval("EmpID") %>')">Edit</button>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteEmpID('<%# Eval("EmpID") %>')">Delete</button>
-                    </itemtemplate>
+                    </ItemTemplate>
                 </asp:TemplateField>
-            </columns>
+            </Columns>
+            <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
+            <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
+            <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
+            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
+            <SortedAscendingCellStyle BackColor="#FFF1D4" />
+            <SortedAscendingHeaderStyle BackColor="#B95C30" />
+            <SortedDescendingCellStyle BackColor="#F1E5CE" />
+            <SortedDescendingHeaderStyle BackColor="#93451F" />
         </asp:GridView>
     </div>
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">

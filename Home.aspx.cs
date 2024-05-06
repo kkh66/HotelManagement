@@ -13,5 +13,13 @@ namespace HotelManagement
         {
 
         }
+
+        protected void btnluxury_Click(object sender, EventArgs e)
+        {
+            HttpCookie cookie = new HttpCookie("Room");
+            cookie.Value = "1";
+            cookie.Expires = DateTime.Now.AddMinutes(15);
+            Response.Cookies.Add(cookie);
+        }
     }
 }

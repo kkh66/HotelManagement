@@ -16,25 +16,7 @@ namespace HotelManagement
         private static string PaypalclientSecret = System.Configuration.ConfigurationManager.AppSettings["PaypalSecretkey"];
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString != null && Request.QueryString.Count != 0)
-            {
-                string approvalToken = Request.QueryString["token"];
-                var response = Task.Run(async () => await captureOrder(approvalToken));
-
-                if (response.Result != null)
-                {
-                    Order result = response.Result.Result<Order>();
-                    Label1.Text = result.Status;
-                    if (result.Status.ToLower() == "approved")
-                    {
-                        // 付款成功后的处理逻辑，如保存订单信息等
-                    }
-                }
-                else
-                {
-                    // 处理空响应的错误
-                }
-            }
+            
         }
         public async static Task<string> createOrder()
         {
@@ -95,19 +77,11 @@ namespace HotelManagement
         }
         protected void btnbook_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Label1.Text = "订单已创建。";
-                var response = Task.Run(async () => await createOrder());
-                Response.Redirect(response.Result);
-            }
-            catch (Exception ex)
-            {
-                // 记录异常信息或执行其他适当的错误处理操作
-                Console.WriteLine("发生异常：" + ex.Message);
-                // 如果需要，在页面上显示错误消息
-                Label1.Text = "发生异常：" + ex.Message;
-            }
+          
+        }
+
+        protected void ddlroom_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
