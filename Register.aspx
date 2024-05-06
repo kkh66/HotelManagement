@@ -213,22 +213,22 @@
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtcustomeruser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
                         <label for="txtcustomeruser">Username</label>
-                        <asp:Label ID="lblcususe" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblcususe" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtpassword" runat="server" CssClass="form-control" placeholder="" TextMode="Password"></asp:TextBox>
                         <label for="txtpassword">Password</label>
-                        <asp:Label ID="lblpass" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblpass" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtconfirmpass" runat="server" CssClass="form-control" placeholder="" TextMode="Password"></asp:TextBox>
                         <label for="txtconfirmpass">Confirm Password</label>
-                        <asp:Label ID="lblconfitmpass" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblconfitmpass" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtemail" runat="server" CssClass="form-control" placeholder="" TextMode="email"></asp:TextBox>
                         <label for="txtemail">Email</label>
-                        <asp:Label ID="lblmail" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblmail" runat="server" CssClass="text-danger" Text=""></asp:Label>
                     </div>
                     <div class="mb-2 mt-2 custom_regddl">
                         <asp:Label ID="lblgender" runat="server" Text="Gender :" AssociatedControlID="ddlgender" class="dropdown"></asp:Label>
@@ -237,7 +237,6 @@
                             <asp:ListItem Value="1">Male</asp:ListItem>
                             <asp:ListItem Value="2">Female</asp:ListItem>
                         </asp:DropDownList>
-                        <asp:Label ID="lblwarngender" runat="server" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtDateofBirth" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>

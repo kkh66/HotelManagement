@@ -55,7 +55,6 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <div class="card card_login">
         <div class="card-body d-flex flex-column full-height">
             <h3 class="mb-4">Login</h3>

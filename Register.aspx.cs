@@ -55,6 +55,7 @@ namespace HotelManagement
                     if (!verifyResult.IsSuccess)
                     {
                         lblerror.Text = "There is a problem with the captcha result.";
+                        lblerror.CssClass = "text-danger";
                     }
                     else
                     {
@@ -130,21 +131,6 @@ namespace HotelManagement
                         else
                         {
                             txtemail.CssClass += " is-valid";
-                        }
-                        if (ddlgender.SelectedValue == "0")
-                        {
-                            lblgender.Text = "Please Select a gender";
-                            hasEmptyFields = true;
-                        }
-                        if (string.IsNullOrEmpty(dateofbirth))
-                        {
-                            lblDateofBirth.Text = "Date of birth is required.";
-                            txtDateofBirth.CssClass += " is-invalid animate__animated animate__headShake";
-                            hasEmptyFields = true;
-                        }
-                        else
-                        {
-                            txtDateofBirth.CssClass += " is-valid";
                         }
 
                         if (hasEmptyFields)

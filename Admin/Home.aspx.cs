@@ -15,20 +15,17 @@ namespace HotelManagement.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                BindReservationList();
-            }
+            BindReservationList();
         }
         private void BindReservationList()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"SELECT r.ReservationID, c.Username, rm.RoomType, r.CheckInDate, r.CheckOutDate, r.TotalPrice, r.ReservedRoomNumber, r.Pax
-                 FROM Reservation r
-                 JOIN Customer c ON r.CustomerID = c.CustomerID
-                 JOIN Room rm ON r.RoomID = rm.RoomId";
+                string query = @"SELECT r.ReservationID, c.Username AS CustomerName, rm.RoomType, r.CheckInDate, r.CheckOutDate, r.TotalPrice, r.ReservedRoomNumber, r.Pax
+FROM Reservation r
+JOIN Customer c ON r.CustomerID = c.CustomerID
+JOIN Room rm ON r.RoomId = rm.RoomId";
                 SqlCommand command = new SqlCommand(query, connection);
 
                 connection.Open();
