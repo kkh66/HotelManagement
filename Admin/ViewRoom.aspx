@@ -9,10 +9,6 @@
         function setDeleteRoomId(roomId) {
             document.getElementById('<%= hfDeleteRoomId.ClientID %>').value = roomId;
         }
-        function showEditModal() {
-            var editModal = new bootstrap.Modal(document.getElementById('editModal'));
-            editModal.show();
-        }
     </script>
     <style>
         body {
@@ -49,104 +45,6 @@
             display: flex;
             min-height: 100vh;
             color: white;
-        }
-
-        .card_roomview {
-            width: 550px;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(25px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.125);
-            border-radius: 12px;
-            color: white;
-        }
-
-            .card_roomview .card-body {
-                padding-top: 10px;
-                padding-bottom: 10px;
-            }
-
-            .card_roomview .carousel-item {
-                height: 300px !important;
-                object-fit: cover !important;
-                overflow: hidden;
-            }
-
-        .view_room_img {
-            height: 300px;
-            width: 515px;
-            border-radius: 12px !important;
-            padding-top: 10px;
-            padding-left: 3px;
-        }
-
-        .font {
-            margin-top: 20px;
-            height: 100px;
-        }
-
-        .modal_edit_room {
-        }
-
-            .modal_edit_room .modal-body {
-                width: 400px !important;
-                padding-left: 48px;
-            }
-
-            .modal_edit_room .form-floating {
-                width: 400px;
-            }
-
-            .modal_edit_room .form-control {
-                background-color: transparent;
-                color: white;
-            }
-
-            .modal_edit_room label {
-                background-color: transparent !important;
-                color: white !important;
-            }
-
-                .modal_edit_room label:active {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .modal_edit_room label:hover {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .modal_edit_room label::after {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-            .modal_edit_room input:active {
-                background-color: transparent !important;
-            }
-
-            .modal_edit_room input:hover {
-                background-color: transparent;
-            }
-
-            .modal_edit_room .modal-header {
-                text-align: center;
-                padding-bottom: 10px;
-            }
-
-            .modal_edit_room .modal-content {
-                backdrop-filter: blur(16px) saturate(180%);
-                background-color: rgba(17, 25, 40, 0.75);
-                border-radius: 12px;
-            }
-
-            .modal_edit_room .modal-footer {
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
-
-        .btn_editroom {
-            background-color: dodgerblue !important;
         }
     </style>
 </asp:Content>
@@ -196,7 +94,7 @@
                                     </div>
                                     <div class="custom_view_button_all">
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteRoomId(<%# Eval("RoomId") %>)">Delete</button>
-                                        <asp:Button ID="btnCalledit" runat="server" Text="Edit" CommandArgument='<%# Eval("RoomId") %>' OnClick="btnCalledit_Click" OnClientClick="showEditModal(); return false;" />
+                                        <asp:Button ID="btnCalledit" runat="server" Text="Edit" CommandName="Edit" CommandArgument='<%# Eval("RoomId") %>' OnClick="btnCalledit_Click" OnClientClick="showEditModal(); return false;" CssClass="btn btn-primary" />
                                     </div>
                                 </div>
                             </div>

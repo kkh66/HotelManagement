@@ -13,6 +13,7 @@ namespace HotelManagement.Admin
 {
     public partial class ViewRoom : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -20,6 +21,37 @@ namespace HotelManagement.Admin
                 BindRoomList();
             }
         }
+        protected void btnCalledit_Click(object sender, EventArgs e)
+        {
+            Button btnEdit = (Button)sender;
+            string roomId = btnEdit.CommandArgument;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT RoomType, Capacity, Description, PricePerNight, RoomNumber FROM Room WHERE RoomId = @RoomId";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@RoomId", roomId);
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    txtEditRoomType.Text = reader["RoomType"].ToString();
+                    txtCapacity.Text = reader["Capacity"].ToString();
+                    txtDescription.Text = reader["Description"].ToString();
+                    txtPricePerNight.Text = reader["PricePerNight"].ToString();
+                    txtRoomNumber.Text = reader["RoomNumber"].ToString();
+
+                    hfEditRoomId.Value = roomId;
+                    string script = "var editModal = new bootstrap.Modal(document.getElementById('editModal')); editModal.show();";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowEditModal", script, true);
+                }
+                reader.Close();
+            }
+        }
+
         private void BindRoomList()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
@@ -86,29 +118,6 @@ namespace HotelManagement.Admin
             BindRoomList();
         }
 
-        protected void btnCalledit_Click(object sender, EventArgs e)
-        {
-            int roomId = Convert.ToInt32(hfEditRoomId.Value);
-            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT RoomType, Capacity, Description, PricePerNight, RoomNumber FROM Room WHERE RoomId = @RoomId";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@RoomId", roomId);
 
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    txtEditRoomType.Text = reader["RoomType"].ToString();
-                    txtCapacity.Text = reader["Capacity"].ToString();
-                    txtDescription.Text = reader["Description"].ToString();
-                    txtPricePerNight.Text = reader["PricePerNight"].ToString();
-                    txtRoomNumber.Text = reader["RoomNumber"].ToString();
-                }
-                reader.Close();
-            }
-        }
     }
 }

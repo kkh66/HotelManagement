@@ -14,7 +14,12 @@ namespace HotelManagement.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["Login"] != null)
+            /*
+            if (!IsLoginPage() && Session["Login"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else if (Session["Login"] != null)
             {
                 string empId = Session["Login"].ToString();
                 using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
@@ -24,25 +29,19 @@ namespace HotelManagement.Admin
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@EmpID", empId);
-                        connection.Open();
                         int count = (int)command.ExecuteScalar();
-                        connection.Close();
 
-                        if (count > 0)
-                        {
-
-                        }
-                        else
+                        if (count == 0)
                         {
                             Response.Redirect("Login.aspx");
                         }
                     }
-                }
-            }
-            else
-            {
-                Response.Redirect("Login.aspx");
-            }*/
+                }*/
+        }
+        //check if the page is login or not
+        private bool IsLoginPage()
+        {
+            return Request.Url.AbsolutePath.EndsWith("Login.aspx", StringComparison.OrdinalIgnoreCase);
         }
     }
 }
