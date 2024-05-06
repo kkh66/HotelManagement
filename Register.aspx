@@ -201,10 +201,6 @@
                 top: -0.1px
             }
         }
-
-        .cf-turnstile {
-            background-color: transparent !important;
-        }
     </style>
 </head>
 <body>

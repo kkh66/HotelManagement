@@ -11,35 +11,17 @@ namespace HotelManagement
 {
 
 
-    public partial class Booking
+    public partial class Testing
     {
 
         /// <summary>
-        /// txtcheckindate control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtcheckindate;
-
-        /// <summary>
-        /// txtcheckoutdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtcheckoutdate;
-
-        /// <summary>
-        /// ddlroom control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlroom;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// Label1 control.
@@ -51,12 +33,12 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// btnbook control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnbook;
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
 }

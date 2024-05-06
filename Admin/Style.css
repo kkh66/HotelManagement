@@ -8,6 +8,31 @@
     height: 50px;
 }
 
+.custom_viewdeletemodal {
+    color: white;
+}
+
+    .custom_viewdeletemodal .modal-content {
+        backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(17, 25, 40, 0.75);
+        border-radius: 12px;
+    }
+
+    .custom_viewdeletemodal .modal-footer {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+.card_use_room {
+    width: 640px;
+    margin-left: 15px;
+}
+
+.custom_view_button_all button {
+    width: 90px;
+    transform:translateY(-10px);
+}
+
 .card_staff {
     width: 500px;
     margin: 50px;

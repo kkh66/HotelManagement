@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.ComponentModel;
 
 namespace HotelManagement.Admin
 {
@@ -36,30 +37,31 @@ namespace HotelManagement.Admin
                 rptRooms.DataBind();
             }
         }
-
+        //Edit Room Details Button
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             int roomId = Convert.ToInt32(hfEditRoomId.Value);
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            string roomType = txtEditRoomType.Text.Trim();
+            int capacity = Convert.ToInt32(txtCapacity.Text.Trim());
+            string description = txtDescription.Text.Trim();
+            decimal pricePerNight = Convert.ToDecimal(txtPricePerNight.Text.Trim());
+            int roomNumber = Convert.ToInt32(txtRoomNumber.Text.Trim());
 
-            // 获取编辑后的房间信息
-            //string roomType = /* 获取房间类型 */;
-            //int capacity = /* 获取容量 */;
-            //string description = /* 获取描述 */;
-            //decimal pricePerNight = /* 获取每晚价格 */;
-            //int roomNumber = /* 获取房间号 */;
-
-            string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionString"].ConnectionString;
+            if (string.IsNullOrEmpty(roomType))
+            {
+                lblRoomtype.Text = "Room Type is required";
+            }
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = "UPDATE Room SET RoomType = @RoomType, Capacity = @Capacity, Description = @Description, PricePerNight = @PricePerNight, RoomNumber = @RoomNumber WHERE RoomId = @RoomId";
                 SqlCommand command = new SqlCommand(query, connection);
-                //command.Parameters.AddWithValue("@RoomType", roomType);
-                //command.Parameters.AddWithValue("@Capacity", capacity);
-                //command.Parameters.AddWithValue("@Description", description);
-                //command.Parameters.AddWithValue("@PricePerNight", pricePerNight);
-                //command.Parameters.AddWithValue("@RoomNumber", roomNumber);
-                //command.Parameters.AddWithValue("@RoomId", roomId);
-
+                command.Parameters.AddWithValue("@RoomType", roomType);
+                command.Parameters.AddWithValue("@Capacity", capacity);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@PricePerNight", pricePerNight);
+                command.Parameters.AddWithValue("@RoomNumber", roomNumber);
+                command.Parameters.AddWithValue("@RoomId", roomId);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -82,6 +84,31 @@ namespace HotelManagement.Admin
             }
 
             BindRoomList();
+        }
+
+        protected void btnCalledit_Click(object sender, EventArgs e)
+        {
+            int roomId = Convert.ToInt32(hfEditRoomId.Value);
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT RoomType, Capacity, Description, PricePerNight, RoomNumber FROM Room WHERE RoomId = @RoomId";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@RoomId", roomId);
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    txtEditRoomType.Text = reader["RoomType"].ToString();
+                    txtCapacity.Text = reader["Capacity"].ToString();
+                    txtDescription.Text = reader["Description"].ToString();
+                    txtPricePerNight.Text = reader["PricePerNight"].ToString();
+                    txtRoomNumber.Text = reader["RoomNumber"].ToString();
+                }
+                reader.Close();
+            }
         }
     }
 }

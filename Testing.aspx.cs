@@ -1,16 +1,17 @@
-﻿using PayPalCheckoutSdk.Core;
-using PayPalCheckoutSdk.Orders;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using PayPalCheckoutSdk.Core;
+using PayPalCheckoutSdk.Orders;
+using PayPalHttp;
 
 namespace HotelManagement
 {
-    public partial class Booking : System.Web.UI.Page
+    public partial class Testing : System.Web.UI.Page
     {
         private static string PaypalclientId = System.Configuration.ConfigurationManager.AppSettings["PaypalClientID"];
         private static string PaypalclientSecret = System.Configuration.ConfigurationManager.AppSettings["PaypalSecretkey"];
@@ -93,7 +94,7 @@ namespace HotelManagement
 
             return "https://www.example.com";
         }
-        protected void btnbook_Click(object sender, EventArgs e)
+        protected void Button1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -108,7 +109,6 @@ namespace HotelManagement
                 // 如果需要，在页面上显示错误消息
                 Label1.Text = "发生异常：" + ex.Message;
             }
-
         }
     }
 }
