@@ -65,24 +65,21 @@
                                 <div class="form-floating mb-2">
                                     <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" placeholder="" ClientIDMode="Static" />
                                     <label for="txtLoginUserName">User Name</label>
-                                    <asp:RequiredFieldValidator ID="RequiredLoUser" runat="server" ErrorMessage="User name is required" ClientIDMode="Static" CssClass=" text-danger" ControlToValidate="txtLoginUserName"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="form-floating mb-2">
                                     <asp:TextBox ID="txtLoginPassword" runat="server" CssClass="form-control" placeholder="" TextMode="Password" ClientIDMode="Static" />
                                     <label for="txtLoginPassword">Password</label>
                                     <asp:Label ID="checklopass" runat="server" Text="" CssClass="text-danger"></asp:Label>
                                 </div>
-                                <div>
-                                </div>
-                                <div class="row">
-                                    <div class="col d-flex justify-content-center">
-                                        <div class="col-6 text-start">
-                                            <asp:Label ID="lblRemenber" runat="server" CssClass="form-check-label" Text="Remenber Me for 30 days" ClientIDMode="Static" />
-                                        </div>
-                                        <div class="col-6 text-end">
-                                        </div>
+                                <div class="cf-turnstile" id="cf-turnstile" data-sitekey="0x4AAAAAAAWJ3SUUSyP1g1Ad" data-callback="javascriptCallback" data-theme="auto"></div>
+                                <div class="col d-flex justify-content-between">
+                                    <div>
+                                        <asp:CheckBox ID="checremenber" runat="server" CssClass="form-check-input" ClientIDMode="Static" />
+                                        <asp:Label ID="lblRemenber" runat="server" CssClass="form-check-label" Text="Remenber Me for 30 days" ClientIDMode="Static" />
                                     </div>
+                                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/ResetPassword.aspx">Forgot Password</asp:HyperLink>
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                                 <asp:Button ID="CloseLogin" runat="server" Text="Close" CssClass="btn btn-outline-secondary" OnClientClick="return CloseModal()" />

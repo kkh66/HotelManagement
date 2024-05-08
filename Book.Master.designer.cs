@@ -87,15 +87,6 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtLoginUserName;
 
         /// <summary>
-        /// RequiredLoUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredLoUser;
-
-        /// <summary>
         /// txtLoginPassword control.
         /// </summary>
         /// <remarks>
@@ -114,6 +105,15 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.Label checklopass;
 
         /// <summary>
+        /// checremenber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checremenber;
+
+        /// <summary>
         /// lblRemenber control.
         /// </summary>
         /// <remarks>
@@ -121,6 +121,15 @@ namespace HotelManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRemenber;
+
+        /// <summary>
+        /// HyperLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
 
         /// <summary>
         /// CloseLogin control.

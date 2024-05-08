@@ -25,17 +25,15 @@ namespace HotelManagement.Staff
 
             if (string.IsNullOrEmpty(staffname))
             {
-                lbluser.Text = "username is required";
-                lbluser.CssClass = "text-danger";
-                txtuser.CssClass += "is-invalid animate__animated animate__headShake";
+                lbluser.Text = "Username is required";
+                txtuser.CssClass += " is-invalid animate__animated animate__headShake";
                 hasEmptyFields = true;
             }
 
             if (string.IsNullOrEmpty(staffpassword))
             {
+                txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
                 lblLogin.Text = "Password is required";
-                lblLogin.CssClass = "text-danger";
-                txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
                 hasEmptyFields = true;
             }
 
@@ -68,8 +66,8 @@ namespace HotelManagement.Staff
                                 lblerror.CssClass = "text-danger";
                                 txtuser.Text = "";
                                 txtpassword.Text = "";
-                                txtuser.CssClass = "is-invalid animate__animated animate__headShake";
-                                txtpassword.CssClass = "is-invalid animate__animated animate__headShake";
+                                txtuser.CssClass += "is-invalid animate__animated animate__headShake";
+                                txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
                             }
                         }
                     }

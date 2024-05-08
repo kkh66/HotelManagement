@@ -13,5 +13,15 @@ namespace HotelManagement.Admin
         {
 
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string roomid=txtroomid.Text.Trim();
+            string roomtype=txtroomtype.Text.Trim();
+            string capacity = txtcapacity.Text.Trim();
+            string desciption=txtdescription.Text.Trim();
+            string price=txtPricepernight.Text.Trim();
+
+        }
     }
 }

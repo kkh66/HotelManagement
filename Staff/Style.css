@@ -1,3 +1,59 @@
 ﻿body {
-    
 }
+
+.login_staff {
+    width: 500px;
+    height: 400px;
+    backdrop-filter: blur(10px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    color: white;
+    text-align: center;
+}
+
+.btn_custom_login {
+    width: 300px;
+    border-radius: 25px;
+    height: 50px;
+}
+
+.custom_login_text {
+    width: 450px !important;
+    margin-left: 15px !important;
+}
+
+    .custom_login_text input {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+        .custom_login_text input:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+        .custom_login_text input:active {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+    .custom_login_text label {
+        background-color: transparent !important;
+        color: white !important;
+    }
+
+        .custom_login_text label::after {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+        .custom_login_text label:hover {
+            background-color: transparent !important;
+            color: white !important;
+        }
+
+        .custom_login_text label:active {
+            background-color: transparent !important;
+            color: white !important;
+        }

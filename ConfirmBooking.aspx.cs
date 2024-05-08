@@ -27,12 +27,11 @@ namespace HotelManagement
                     lblpaypal.Text = result.Status;
                     if (result.Status.ToLower() == "approved")
                     {
-                        // 付款成功后的处理逻辑，如保存订单信息等
                     }
                 }
                 else
                 {
-                    // 处理空响应的错误
+
                 }
             }
         }
@@ -112,14 +111,6 @@ namespace HotelManagement
         }
 
         protected void BtnPaypal_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Home.aspx");
-            Console.WriteLine("BtnPaypal_Click 事件处理程序被触发");
-            //var response = Task.Run(async () => await createOrder());
-            //Response.Redirect(response.Result);
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
         {
             Console.WriteLine("BtnPaypal_Click 事件处理程序被触发");
             var response = Task.Run(async () => await createOrder());

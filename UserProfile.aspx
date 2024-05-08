@@ -174,6 +174,7 @@
                     <asp:GridView ID="GridView1" runat="server" DataSourceID="Hotel1"></asp:GridView>
                 </div>
             </div>
+
         </div>
     </section>
 </asp:Content>

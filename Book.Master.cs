@@ -69,7 +69,7 @@ namespace HotelManagement
         protected async void Loginbtn_Click(object sender, EventArgs e)
         {
 
-            /*string username = txtLoginUserName.Text;
+            string username = txtLoginUserName.Text;
             string password = txtLoginPassword.Text;
             string clientIp = GetIp();
             string script = "window.onload = function() {{ myModal.show(); }};";
@@ -160,7 +160,7 @@ namespace HotelManagement
                 lblLoginerror.Text = "The 'token' key is not present in the form data.";
                 lblLoginerror.CssClass = "text-danger";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
-            }*/
+            }
         }
 
     }
