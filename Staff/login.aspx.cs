@@ -27,19 +27,13 @@ namespace HotelManagement.Staff
             {
                 lbluser.Text = "Username is required";
                 txtuser.CssClass += " is-invalid animate__animated animate__headShake";
-                lbluser.Text = "username is required";
-                lbluser.CssClass = "text-danger";
-                txtuser.CssClass += "is-invalid animate__animated animate__headShake";
                 hasEmptyFields = true;
             }
 
             if (string.IsNullOrEmpty(staffpassword))
             {
+                lblLogin.Text = "Password is required";
                 txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
-                lblLogin.Text = "Password is required";
-                lblLogin.Text = "Password is required";
-                lblLogin.CssClass = "text-danger";
-                txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
                 hasEmptyFields = true;
             }
 
