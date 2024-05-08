@@ -25,15 +25,27 @@ namespace HotelManagement.Staff
 
             if (string.IsNullOrEmpty(staffname))
             {
+<<<<<<< HEAD
                 lbluser.Text = "Username is required";
                 txtuser.CssClass += " is-invalid animate__animated animate__headShake";
+=======
+                lbluser.Text = "username is required";
+                lbluser.CssClass = "text-danger";
+                txtuser.CssClass += "is-invalid animate__animated animate__headShake";
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
                 hasEmptyFields = true;
             }
 
             if (string.IsNullOrEmpty(staffpassword))
             {
+<<<<<<< HEAD
                 txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
                 lblLogin.Text = "Password is required";
+=======
+                lblLogin.Text = "Password is required";
+                lblLogin.CssClass = "text-danger";
+                txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
                 hasEmptyFields = true;
             }
 
@@ -66,8 +78,13 @@ namespace HotelManagement.Staff
                                 lblerror.CssClass = "text-danger";
                                 txtuser.Text = "";
                                 txtpassword.Text = "";
+<<<<<<< HEAD
                                 txtuser.CssClass += "is-invalid animate__animated animate__headShake";
                                 txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
+=======
+                                txtuser.CssClass = "is-invalid animate__animated animate__headShake";
+                                txtpassword.CssClass = "is-invalid animate__animated animate__headShake";
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
                             }
                         }
                     }

@@ -18,6 +18,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+<<<<<<< HEAD
         <div>
             <header>
                 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark bg-special">
@@ -40,6 +41,48 @@
                                     <asp:HyperLink ID="Profilelink" runat="server" CssClass="nav-link" NavigateUrl="~/UserProfile.aspx">Profile</asp:HyperLink>
                                 </li>
                             </ul>
+=======
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark bg-special">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <i class="fa-solid fa-hotel logo_use"></i>&nbsp; HOTEL KNN  
+                    </a>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="Home.aspx">Home</a>
+                            </li>
+                            <li class="nav-item" id="nav-links">
+                                <a class="nav-link" href="#about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#room">Room</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="UserProfile.aspx">Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <asp:HyperLink ID="Registerlink" runat="server" NavigateUrl="~/Register.aspx" CssClass="btn btn-primary card_btn_use">Register</asp:HyperLink>
+                        <asp:HyperLink ID="Loginlink" runat="server" CssClass="btn btn-primary card_btn_use" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</asp:HyperLink>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div>
+            <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="LoginModalLabel">Login Page</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
                         </div>
                         <div>
                             <asp:HyperLink ID="Registerlink" runat="server" NavigateUrl="~/Register.aspx" CssClass="btn btn-primary card_btn_use">Register</asp:HyperLink>

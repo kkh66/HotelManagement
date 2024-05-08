@@ -17,6 +17,7 @@
             padding: 0;
         }
 
+<<<<<<< HEAD
         footer {
             color: white;
         }
@@ -28,6 +29,63 @@
             .logo_use:hover {
                 color: wheat !important;
             }
+=======
+        .login_staff {
+            width: 500px;
+            height: 400px;
+            backdrop-filter: blur(10px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            color: white;
+            text-align: center;
+        }
+
+        .btn_custom_login {
+            width: 300px;
+            border-radius: 25px;
+        }
+
+        .custom_login_text {
+            width: 450px !important;
+            margin-left: 15px !important;
+        }
+
+            .custom_login_text input {
+                background-color: transparent !important;
+                color: white !important;
+            }
+
+                .custom_login_text input:hover {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+
+                .custom_login_text input:active {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+
+            .custom_login_text label {
+                background-color: transparent !important;
+                color: white !important;
+            }
+
+                .custom_login_text label::after {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+
+                .custom_login_text label:hover {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+
+                .custom_login_text label:active {
+                    background-color: transparent !important;
+                    color: white !important;
+                }
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -35,6 +93,7 @@
         <div class="card-body">
             <h2>Login Staff</h2>
             <asp:Label ID="lblerror" runat="server" Text=""></asp:Label>
+<<<<<<< HEAD
             <div class="form-floating mb-4 mt-5 custom_login_text">
                 <asp:TextBox ID="txtuser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
                 <label for="txtuser">Username</label>
@@ -44,6 +103,17 @@
                 <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
                 <label for="txtpassword">Password</label>
                 <asp:Label ID="lblLogin" runat="server" Text="" CssClass="text-danger" ClientIDMode="Static"></asp:Label>
+=======
+            <div class="form-floating mb-5 mt-5 custom_login_text">
+                <asp:TextBox ID="txtuser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
+                <label for="txtuser">Username</label>
+                <asp:Label ID="lbluser" runat="server" CssClass="text-danger" Text=""></asp:Label>
+            </div>
+            <div class="form-floating mb-5 custom_login_text">
+                <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
+                <label for="txtpassword">Password</label>
+                <asp:Label ID="lblLogin" runat="server" Text=""></asp:Label>
+>>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
             </div>
             <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-primary btn_custom_login" OnClick="BtnLogin_Click" />
         </div>
