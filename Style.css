@@ -236,6 +236,34 @@ video {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
 }
 
+.container_payfail {
+    max-width: 600px;
+    margin: 100px auto;
+    background-color: #222;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+    .container_payfail h1 {
+        color: #dc3545;
+    }
+
+    .container_payfail p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .container_payfail .btn {
+        background-color: #dc3545;
+        color: #fff;
+        border-radius: 5px;
+    }
+
+        .container_payfail .btn:hover {
+            background-color: #bb2d3b;
+        }
+
 .room_card_details {
     margin-inline: 1rem;
     padding: 1rem;

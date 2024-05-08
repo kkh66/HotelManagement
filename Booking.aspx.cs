@@ -97,7 +97,7 @@ namespace HotelManagement
             }
             HttpCookie cookie = new HttpCookie("Order");
             cookie.Value = reservationId;
-            cookie.Expires = DateTime.Now.AddDays(30);
+            cookie.Expires = DateTime.Now.AddDays(1);
             Response.Cookies.Add(cookie);
             Response.Redirect("ConfirmBooking.aspx");
 
