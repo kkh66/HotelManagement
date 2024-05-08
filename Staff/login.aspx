@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Staff/Staff.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="HotelManagement.Staff.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title>Login Page</title>
     <style>
         body {
             background-image: url("/img/Stafflogin.jpg");
@@ -27,64 +28,7 @@
             .logo_use:hover {
                 color: wheat !important;
             }
-
-        .login_staff {
-            width: 500px;
-            height: 400px;
-            backdrop-filter: blur(10px) saturate(180%);
-            background-color: rgba(17, 25, 40, 0.75);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.125);
-            color: white;
-            text-align: center;
-        }
-
-        .btn_custom_login {
-            width: 300px;
-            border-radius: 25px;
-        }
-
-        .custom_login_text {
-            width: 450px !important;
-            margin-left: 15px !important;
-        }
-
-            .custom_login_text input {
-                background-color: transparent !important;
-                color: white !important;
-            }
-
-                .custom_login_text input:hover {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .custom_login_text input:active {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-            .custom_login_text label {
-                background-color: transparent !important;
-                color: white !important;
-            }
-
-                .custom_login_text label::after {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .custom_login_text label:hover {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
-
-                .custom_login_text label:active {
-                    background-color: transparent !important;
-                    color: white !important;
-                }
     </style>
-
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="card login_staff">
