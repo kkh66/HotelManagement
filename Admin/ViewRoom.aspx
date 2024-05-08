@@ -76,7 +76,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <h2 class="mt-2"><%# Eval("RoomType") %> (Room left <%# Eval("RoomNumber") %>)</h2>
+                                <h2 class="mt-2"><%# Eval("RoomType") %> </h2>
                                 <p class="mt-2 mb-0">Description: <%# Eval("Description") %></p>
                                 <p class="mb-0">Capacity: <%# Eval("Capacity") %></p>
                                 <div class="d-flex justify-content-between align-items-center">

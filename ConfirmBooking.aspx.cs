@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
@@ -22,14 +23,14 @@ namespace HotelManagement
         {
             if (!IsPostBack)
             {
-                HttpCookie orderCookie = Request.Cookies["Order"];
-                if (orderCookie == null)
+                /*HttpCookie orderCookie = Request.Cookies["Order"];
+                 if (orderCookie == null)
                 {
                     Response.Redirect("Home.aspx");
                     return;
-                }
+                }*/
 
-                string reservationId = orderCookie.Value;
+                string reservationId = "01853fb8-3ae6-4cdd-b6cc-d80e4ec0b043";
 
                 if (!string.IsNullOrEmpty(reservationId))
                 {
@@ -44,7 +45,7 @@ namespace HotelManagement
                         if (reader.Read())
                         {
                             lblcustomername.Text = "Reservation ID: " + reader["ReservationID"].ToString();
-                            lblroomtype.Text = "Room Type: " + reader["RoomID"].ToString();
+                            lblroomtype.Text = reader["RoomID"].ToString();
                             lblcheckin.Text = "Check-in Date: " + ((DateTime)reader["CheckIndate"]).ToString("dd-MM-yyyy");
                             lblcheckout.Text = "Check-out Date: " + ((DateTime)reader["CheckOutdate"]).ToString("dd-MM-yyyy");
                             lbltotalprice.Text = "Total Price: " + reader["TotalPrice"].ToString();
@@ -54,12 +55,8 @@ namespace HotelManagement
                         reader.Close();
                     }
                 }
-
-                var stripeToken = Request.Form["stripeToken"];
-                if (!string.IsNullOrEmpty(stripeToken))
-                {
-                    ProcessStripePayment(stripeToken);
-                }
+                string totaluse = GetTotalAmountFromDatabase();
+                decimal paymentAmount = decimal.Parse(totaluse);
 
                 if (Request.QueryString != null && Request.QueryString.Count != 0)
                 {
@@ -72,7 +69,7 @@ namespace HotelManagement
                         lblpaypal.Text = result.Status;
                         if (result.Status.ToString() == "COMPLETED")
                         {
-                            UpdateDatabaseWithPaymentDetails(approvalToken, "Paypal");
+                            UpdateDatabaseWithPaymentDetails(approvalToken, "Paypal", paymentAmount);
                             Response.Redirect("PaymentSuccesfull.aspx");
                         }
                         else
@@ -85,7 +82,34 @@ namespace HotelManagement
                         Response.Redirect("PaymentFail.aspx");
                     }
                 }
+
             }
+            string stripeSecretKey = ConfigurationManager.AppSettings["StripeSecretKey"];
+            StripeConfiguration.SetApiKey(stripeSecretKey);
+            string totalAmount = GetTotalAmountFromDatabase();
+            int amountInCents = (int)(Convert.ToDecimal(totalAmount) * 100);
+            decimal paymentstripe = decimal.Parse(totalAmount);
+            string stripeToken = Request.Form["stripeToken"];
+            var stripeChargeService = new ChargeService();
+            var chargeOptions = new ChargeCreateOptions
+            {
+                Amount = amountInCents,
+                Currency = "myr",
+                Description = "Charge for HotelRoom",
+                Source = stripeToken,
+            };
+
+            try
+            {
+                var charge = stripeChargeService.Create(chargeOptions);
+                UpdateDatabaseWithPaymentDetails(stripeToken, "Stripe", paymentstripe);
+                Response.Redirect("PaymentSuccesfull.aspx", false);
+            }
+            catch (StripeException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Payment failed with error: " + ex.Message);
+            }
+
         }
 
         protected void ddlPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -103,79 +127,37 @@ namespace HotelManagement
                 pnlPayPal.Visible = true;
             }
         }
-        private void ProcessStripePayment(string stripeToken)
+
+        private string FormatAmountForPayPal(string totalAmount)
         {
-            ConfirmBooking confirmBookingInstance = new ConfirmBooking();
-            string StripeSecretKey = ConfigurationManager.AppSettings["StripeSecretKey"];
-            StripeConfiguration.SetApiKey(StripeSecretKey);
-
-            var stripeChargeService = new ChargeService();
-            var chargeOptions = new ChargeCreateOptions
-            {
-                Amount = 999,
-                Currency = "myr",
-                Description = "Charge for Hotel booking",
-                Source = stripeToken,
-            };
-
-            try
-            {
-                var charge = stripeChargeService.Create(chargeOptions);
-                System.Diagnostics.Debug.WriteLine("Payment succeeded with charge ID: " + charge.Id);
-
-                confirmBookingInstance.UpdateDatabaseWithPaymentDetails(charge.Id, "Stripe");
-
-                Response.Redirect("PaymentSuccessful.aspx");
-            }
-            catch (StripeException ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Payment failed with error: " + ex.Message);
-                Response.Redirect("PaymentFail.aspx");
-            }
+            decimal amount = decimal.Parse(totalAmount);
+            return amount.ToString("0.00");
         }
 
-
-
-        public async static Task<string> createOrder()
+        private string GetTotalAmountFromDatabase()
         {
-            var order = new OrderRequest()
+            if (Request == null || Request.Cookies["Order"] == null)
             {
-                CheckoutPaymentIntent = "CAPTURE",
-                PurchaseUnits = new List<PurchaseUnitRequest>()
-        {
-            new PurchaseUnitRequest()
+                return "";
+            }
+            string reservationId = Request.Cookies["Order"].Value;
+            string totalAmount = "";
+
+            if (!string.IsNullOrEmpty(reservationId))
             {
-                AmountWithBreakdown = new AmountWithBreakdown()
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
                 {
-                    CurrencyCode = "MYR",
-                    Value = "100.00"
+                    string query = "SELECT TotalPrice FROM Reservation WHERE ReservationID = @ReservationID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ReservationID", reservationId);
+                    conn.Open();
+                    totalAmount = cmd.ExecuteScalar()?.ToString();
                 }
             }
-        },
-                ApplicationContext = new ApplicationContext()
-                {
-                    ReturnUrl = "https://localhost:44384/ConfirmBooking.aspx",
-                    CancelUrl = "https://localhost:44384/ConfirmBooking.aspx"
-                }
-            };
 
-            var request = new OrdersCreateRequest();
-            request.Prefer("return=representation");
-            request.RequestBody(order);
-            var environment = new SandboxEnvironment(PaypalclientId, PaypalclientSecret);
-            var response = await (new PayPalHttpClient(environment).Execute(request));
-            Order result = response.Result<Order>();
-
-            if (result != null && result.Status.ToLower() == "created")
-            {
-                return GetApprovalUrl(result);
-            }
-            else
-            {
-                return "PaymentFail.aspx";
-            }
+            return totalAmount;
         }
-
+       
         public async static Task<PayPalHttp.HttpResponse> captureOrder(string token)
         {
             var request = new OrdersCaptureRequest(token);
@@ -202,10 +184,51 @@ namespace HotelManagement
 
         protected async void BtnPaypal_Click(object sender, EventArgs e)
         {
-            string approvalUrl = await createOrder();
+            string totalAmount = GetTotalAmountFromDatabase();
+            string formattedAmount = FormatAmountForPayPal(totalAmount);
+            string approvalUrl = await createOrder(formattedAmount);
             Response.Redirect(approvalUrl);
         }
-        private void UpdateDatabaseWithPaymentDetails(string paymentId, string paymentMethod)
+        public async static Task<string> createOrder(string formattedAmount)
+        {
+            var order = new OrderRequest()
+            {
+                CheckoutPaymentIntent = "CAPTURE",
+                PurchaseUnits = new List<PurchaseUnitRequest>()
+        {
+            new PurchaseUnitRequest()
+            {
+                AmountWithBreakdown = new AmountWithBreakdown()
+                {
+                    CurrencyCode = "MYR",
+                    Value = formattedAmount
+                }
+            }
+        },
+                ApplicationContext = new ApplicationContext()
+                {
+                    ReturnUrl = "https://localhost:44384/ConfirmBooking.aspx",
+                    CancelUrl = "https://localhost:44384/ConfirmBooking.aspx"
+                }
+            };
+
+            var request = new OrdersCreateRequest();
+            request.Prefer("return=representation");
+            request.RequestBody(order);
+            var environment = new SandboxEnvironment(PaypalclientId, PaypalclientSecret);
+            var response = await (new PayPalHttpClient(environment).Execute(request));
+            Order result = response.Result<Order>();
+
+            if (result != null && result.Status.ToLower() == "created")
+            {
+                return GetApprovalUrl(result);
+            }
+            else
+            {
+                return "PaymentFail.aspx";
+            }
+        }
+        private void UpdateDatabaseWithPaymentDetails(string paymentId, string paymentMethod, decimal PaymentAmount)
         {
             string reservationId = Request.Cookies["Order"].Value;
 
@@ -213,16 +236,20 @@ namespace HotelManagement
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
                 {
-                    string query = "INSERT INTO Payment (PaymentID, ReservationID, Date, PaymentMethod) VALUES (@PaymentID, @ReservationID, @Date, @PaymentMethod)";
+                    string query = "INSERT INTO Payment (PaymentID, ReservationID, Date, PaymentMethod,PaymentAmount) VALUES (@PaymentID, @ReservationID, @Date, @PaymentMethod,@PaymentAmount)";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@PaymentID", paymentId);
                     cmd.Parameters.AddWithValue("@ReservationID", reservationId);
                     cmd.Parameters.AddWithValue("@Date", DateTime.Now);
                     cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                    cmd.Parameters.AddWithValue("@PaymentAmount", Convert.ToDecimal(PaymentAmount));
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
+            //HttpCookie myCookie = new HttpCookie("Order");
+            //myCookie.Expires = DateTime.Now.AddDays(-1d);
+            //Response.Cookies.Add(myCookie);
         }
     }
 }

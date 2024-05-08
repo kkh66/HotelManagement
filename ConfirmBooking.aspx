@@ -1,42 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Book.Master" AutoEventWireup="true" CodeBehind="ConfirmBooking.aspx.cs" Async="true"  Inherits="HotelManagement.ConfirmBooking" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Book.Master" AutoEventWireup="true" CodeBehind="ConfirmBooking.aspx.cs" Async="true" Inherits="HotelManagement.ConfirmBooking" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="https://js.stripe.com/v3/"></script>
-    <script>   
-        document.addEventListener('DOMContentLoaded', function () {
-            var stripe = Stripe('pk_test_51OrP6QJMhsB8qHbvjZwtZTq8vcXf5w3N1u6FsYiRK8o7FWQfrEhvOV4E0LTrhtIwKgxSoreFUskmLdi9gUHB3z2l003HweZzGM');
-            var elements = stripe.elements();
-            var card = elements.create('card');
-            card.mount('#card-element');
 
-            var form = document.getElementById('payment-form');
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                stripe.createToken(card).then(function (result) {
-                    if (result.error) {
-
-                        var errorElement = document.getElementById('card-errors');
-                        errorElement.textContent = result.error.message;
-                    } else {
-                        stripeTokenHandler(result.token);
-                    }
-                });
-            });
-            function stripeTokenHandler(token) {
-
-                var form = document.getElementById('payment-form');
-                var hiddenInput = document.createElement('input');
-                hiddenInput.setAttribute('type', 'hidden');
-                hiddenInput.setAttribute('name', 'stripeToken');
-                hiddenInput.setAttribute('value', token.id);
-                form.appendChild(hiddenInput);
-
-                form.submit();
-            }
-        }
-        );
-    </script>
     <style>
         .wrapper {
             display: flex;
@@ -54,30 +20,47 @@
             display: inline-block;
             vertical-align: top;
         }
+
+        .StripeElement {
+            height: 50px;
+        }
+
+        .card_booking_confirm {
+        }
+
+            .card_booking_confirm .card-header {
+                background-color: transparent;
+                border: 0;
+                font-size: 40px;
+                text-align: right;
+            }
+
+        .custom_using_pay {
+            width: 300px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class=" d-flex justify-content-center align-content-center">
-        <div>
-            <asp:DropDownList ID="ddlPaymentMethod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPaymentMethod_SelectedIndexChanged">
+        <div class="custom_using_pay">
+            <asp:DropDownList ID="ddlPaymentMethod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPaymentMethod_SelectedIndexChanged" CssClass="selectpicker">
                 <asp:ListItem Value="CreditCard" Selected="True">Credit Card</asp:ListItem>
                 <asp:ListItem Value="PayPal">PayPal</asp:ListItem>
             </asp:DropDownList>
+
             <asp:Panel ID="pnlCreditCard" runat="server" Visible="True">
                 <div class="card-body">
                     <h5 class="card-title">Credit Card Payment</h5>
                     <p class="card-text">Enter your credit card information here.</p>
                     <div>
                         <div id="card-element"></div>
-                        <div id="card-errors" role="alert"></div>
-
-                        <button type="submit">Pay</button>
-                        <input type="hidden" name="stripeToken" id="stripeToken" />
+                        <div id="card-errors" class="text-danger" role="alert"></div>
+                        <button type="submit" class="btn">Pay</button>
+                        <input type="hidden" id="stripeTokenInput" name="stripeToken" />
                     </div>
                 </div>
             </asp:Panel>
             <asp:Panel ID="pnlPayPal" runat="server" Visible="False">
-
                 <div class="card-body">
                     <h5 class="card-title">PayPal Payment</h5>
                     <p class="card-text">You will be redirected to PayPal to complete the payment.</p>
@@ -87,16 +70,50 @@
             </asp:Panel>
         </div>
         <div class="separator"></div>
-        <div class="card d-flex flex-column">
-            <div class="card-body">
-                <h2 class="card-header">Your booking details</h2>
-                <asp:Label ID="lblroomtype" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="lblcustomername" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="lblcheckin" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="lblcheckout" runat="server" Text="Label"></asp:Label>
+        <div class="card d-flex flex-column card_booking_confirm ">
+            <div class="card-body d-flex flex-column">
+                <strong class="card-header">Your booking details</strong>
+                <div>
+                    <label>Room type:<br />
+                    </label>
+                    <asp:Label ID="lblroomtype" runat="server" Text="Label"></asp:Label>
+                </div>
+                <asp:Label ID="lblcustomername" runat="server" Text="Label"></asp:Label><div class="row">
+                    <div class="col-6">
+                        <asp:Label ID="lblcheckin" runat="server" Text="Label"></asp:Label>
+                    </div>
+                    <div class="col-6">
+                        <label></label>
+                        <asp:Label ID="lblcheckout" runat="server" Text="Label"></asp:Label>
+                    </div>
+                </div>
                 <asp:Label ID="lbltotalprice" runat="server" Text="Label"></asp:Label>
                 <asp:Label ID="ReservedRoomNumber" runat="server" Text="Label"></asp:Label>
             </div>
         </div>
     </div>
+    <script>   
+        document.addEventListener('DOMContentLoaded', function () {
+            var stripe = Stripe('pk_test_51OrP6QJMhsB8qHbvjZwtZTq8vcXf5w3N1u6FsYiRK8o7FWQfrEhvOV4E0LTrhtIwKgxSoreFUskmLdi9gUHB3z2l003HweZzGM');
+            var elements = stripe.elements();
+            var card = elements.create('card');
+            card.mount('#card-element');
+
+            var form = document.getElementById('form1');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                stripe.createToken(card).then(function (result) {
+                    if (result.error) {
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = result.error.message;
+                    } else {
+                        var tokenInput = document.getElementById('stripeTokenInput');
+                        tokenInput.value = result.token.id;
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
 </asp:Content>

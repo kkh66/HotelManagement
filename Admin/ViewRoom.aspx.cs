@@ -29,7 +29,7 @@ namespace HotelManagement.Admin
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT RoomType, Capacity, Description, PricePerNight, RoomNumber FROM Room WHERE RoomId = @RoomId";
+                string query = "SELECT RoomType, Capacity, Description, PricePerNight FROM Room WHERE RoomId = @RoomId";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@RoomId", roomId);
 
@@ -42,7 +42,6 @@ namespace HotelManagement.Admin
                     txtCapacity.Text = reader["Capacity"].ToString();
                     txtDescription.Text = reader["Description"].ToString();
                     txtPricePerNight.Text = reader["PricePerNight"].ToString();
-                    txtRoomNumber.Text = reader["RoomNumber"].ToString();
 
                     hfEditRoomId.Value = roomId;
                     string script = "var editModal = new bootstrap.Modal(document.getElementById('editModal')); editModal.show();";
@@ -78,21 +77,18 @@ namespace HotelManagement.Admin
             int capacity = Convert.ToInt32(txtCapacity.Text.Trim());
             string description = txtDescription.Text.Trim();
             decimal pricePerNight = Convert.ToDecimal(txtPricePerNight.Text.Trim());
-            int roomNumber = Convert.ToInt32(txtRoomNumber.Text.Trim());
-
             if (string.IsNullOrEmpty(roomType))
             {
                 lblRoomtype.Text = "Room Type is required";
             }
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE Room SET RoomType = @RoomType, Capacity = @Capacity, Description = @Description, PricePerNight = @PricePerNight, RoomNumber = @RoomNumber WHERE RoomId = @RoomId";
+                string query = "UPDATE Room SET RoomType = @RoomType, Capacity = @Capacity, Description = @Description, PricePerNight = @PricePerNight WHERE RoomId = @RoomId";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@RoomType", roomType);
                 command.Parameters.AddWithValue("@Capacity", capacity);
                 command.Parameters.AddWithValue("@Description", description);
                 command.Parameters.AddWithValue("@PricePerNight", pricePerNight);
-                command.Parameters.AddWithValue("@RoomNumber", roomNumber);
                 command.Parameters.AddWithValue("@RoomId", roomId);
                 connection.Open();
                 command.ExecuteNonQuery();
