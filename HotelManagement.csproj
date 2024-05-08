@@ -156,7 +156,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Staff\Home.aspx" />
-    <Content Include="Staff\login.aspx" />
+    <Content Include="Staff\loginpage.aspx" />
     <Content Include="Staff\Script.js" />
     <Content Include="Staff\Style.css" />
     <Content Include="Style.css" />
@@ -274,19 +274,12 @@
     <Compile Include="Staff\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Staff\login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="Staff\loginpage.aspx.cs">
+      <DependentUpon>loginpage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Staff\login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Staff\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Staff\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="Staff\loginpage.aspx.designer.cs">
+      <DependentUpon>loginpage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Staff\Staff.Master.cs">
       <DependentUpon>Staff.Master</DependentUpon>

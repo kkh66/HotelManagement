@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Staff/Staff.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="HotelManagement.Staff.login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Staff/Staff.Master" AutoEventWireup="true" CodeBehind="loginpage.aspx.cs" Inherits="HotelManagement.Staff.loginpage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Login Page</title>
     <style>
         body {
             background-image: url("/img/Stafflogin.jpg");
@@ -48,4 +47,5 @@
             <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-primary btn_custom_login" OnClick="BtnLogin_Click" />
         </div>
     </div>
+
 </asp:Content>

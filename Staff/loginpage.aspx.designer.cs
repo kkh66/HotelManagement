@@ -11,7 +11,7 @@ namespace HotelManagement.Staff
 {
 
 
-    public partial class login
+    public partial class loginpage
     {
 
         /// <summary>
