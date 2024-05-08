@@ -1,7 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Staff/Staff.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="HotelManagement.Staff.login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Staff/Staff.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="HotelManagement.Staff.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Login Page</title>
     <style>
         body {
             background-image: url("/img/Stafflogin.jpg");
@@ -17,7 +16,6 @@
             padding: 0;
         }
 
-<<<<<<< HEAD
         footer {
             color: white;
         }
@@ -29,7 +27,7 @@
             .logo_use:hover {
                 color: wheat !important;
             }
-=======
+
         .login_staff {
             width: 500px;
             height: 400px;
@@ -85,15 +83,14 @@
                     background-color: transparent !important;
                     color: white !important;
                 }
->>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
     </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="card login_staff">
         <div class="card-body">
             <h2>Login Staff</h2>
             <asp:Label ID="lblerror" runat="server" Text=""></asp:Label>
-<<<<<<< HEAD
             <div class="form-floating mb-4 mt-5 custom_login_text">
                 <asp:TextBox ID="txtuser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
                 <label for="txtuser">Username</label>
@@ -103,19 +100,18 @@
                 <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
                 <label for="txtpassword">Password</label>
                 <asp:Label ID="lblLogin" runat="server" Text="" CssClass="text-danger" ClientIDMode="Static"></asp:Label>
-=======
-            <div class="form-floating mb-5 mt-5 custom_login_text">
-                <asp:TextBox ID="txtuser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
-                <label for="txtuser">Username</label>
-                <asp:Label ID="lbluser" runat="server" CssClass="text-danger" Text=""></asp:Label>
+                <div class="form-floating mb-5 mt-5 custom_login_text">
+                    <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
+                    <label for="txtuser">Username</label>
+                    <asp:Label ID="Label1" runat="server" CssClass="text-danger" Text=""></asp:Label>
+                </div>
+                <div class="form-floating mb-5 custom_login_text">
+                    <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
+                    <label for="txtpassword">Password</label>
+                    <asp:Label ID="Label2" runat="server" Text=""></asp:Label>
+                </div>
+                <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-primary btn_custom_login" OnClick="BtnLogin_Click" />
             </div>
-            <div class="form-floating mb-5 custom_login_text">
-                <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
-                <label for="txtpassword">Password</label>
-                <asp:Label ID="lblLogin" runat="server" Text=""></asp:Label>
->>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
-            </div>
-            <asp:Button ID="BtnLogin" runat="server" Text="Login" CssClass="btn btn-primary btn_custom_login" OnClick="BtnLogin_Click" />
         </div>
     </div>
 </asp:Content>

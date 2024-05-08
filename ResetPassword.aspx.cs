@@ -53,7 +53,7 @@ namespace HotelManagement
             }
         }
 
-        protected async void BtnSendOtp_Click(object sender, EventArgs e)
+        protected void BtnSendOtp_Click(object sender, EventArgs e)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             string username = txtusername.Text.Trim();
