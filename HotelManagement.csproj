@@ -265,6 +265,27 @@
     <Compile Include="Staff\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Staff\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Staff\Staff.Master.cs">
+      <DependentUpon>Staff.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Staff\Staff.Master.designer.cs">
+      <DependentUpon>Staff.Master</DependentUpon>
+    </Compile>
+    <Compile Include="testfortable.aspx.cs">
+      <DependentUpon>testfortable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testfortable.aspx.designer.cs">
+      <DependentUpon>testfortable.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Testing.aspx.cs">
       <DependentUpon>Testing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
