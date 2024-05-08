@@ -47,12 +47,12 @@
         <div class="card d-flex flex-column">
             <div class="card-body">
                 <h2 class="card-header">Your booking details</h2>
-                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
-                <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblroomtype" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblcustomername" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblcheckin" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblcheckout" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lbltotalprice" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="ReservedRoomNumber" runat="server" Text="Label"></asp:Label>
             </div>
         </div>
     </div>

@@ -11,7 +11,7 @@
 
             .wrapper h2 {
                 margin-top: 20px;
-                margin-left: 50px;
+                margin-left: 100px;
                 font-size: 50px;
             }
 
@@ -21,24 +21,73 @@
         }
 
         .card_book {
-            width: 700px;
-            border: solid 2px;
-            margin-left: 20px;
+            border: solid 1px;
+            margin-left: 100px;
             border-radius: 25px;
+            width: 800px;
+            height: 450px;
         }
 
-        .card_book {
-            border: solid 2px;
-            margin-left: 50px;
-            border-radius: 13px;
-            width: 700px;
-        }
+            .card_book .carousel-item {
+                padding-top: 10px;
+                padding-left: 10px;
+                border-radius: 25px;
+                padding-right: 10px;
+                padding-bottom: 10px;
+            }
 
             .card_book img {
-                width: 700px;
-                border-radius: 13px;
-                height: 400px;
+                border-radius: 25px;
+                height: 430px;
                 overflow: auto;
+            }
+
+        .card_price {
+            border: 0;
+            margin-left: -190px;
+            margin-right: 80px;
+        }
+
+            .card_price .card-body {
+                margin-left: 20px;
+                text-align: center;
+                height: 50px;
+                width: 300px;
+                padding-top: 5px;
+                border: solid 1px;
+                border-radius: 25px;
+            }
+
+        .card_capacity {
+            border: 0;
+            margin-left: -190px;
+            margin-right: 80px;
+        }
+
+            .card_capacity .card-body {
+                margin-left: 20px;
+                text-align: center;
+                height: 50px;
+                width: 300px;
+                padding-top: 5px;
+                border: solid 1px;
+                border-radius: 25px;
+            }
+
+        .card_checkinout {
+            border: 0;
+            margin-left: -170px;
+            margin-right: 120px;
+        }
+
+            .card_checkinout .card-body {
+                border: solid 1px;
+                border-radius: 12px;
+            }
+            .btn_bok_room{
+                margin-left:50px;
+                width:200px;
+                border-radius:10px;
             }
     </style>
 </asp:Content>
@@ -46,29 +95,21 @@
 
     <div class="d-flex justify-content-between">
         <div>
-            <h2>
+            <h2 class="mb-2">
                 <asp:Label ID="lblroomtype" runat="server" Text="Single room"></asp:Label></h2>
-            <div class="card card_book">
+            <div class="card card_book mt-2">
 
                 <div id="Carousel" class="carousel slide" data-bs-touch="false" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#Carousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#Carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#Carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                        <button type="button" data-bs-target="#Carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <asp:Image ID="img1" runat="server" alt="Slide 1" ImageUrl="~/img/Delexu.jpg" />
                         </div>
                         <div class="carousel-item">
-                            <img class="d-block w-100 img-fluid" src="img/carosel-2.png" alt="Slide 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 img-fluid" src="img/carosel-3.png" alt="Slide 3">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100 img-fluid" src="img/carosel-4.png" alt="Slide 4">
+                            <asp:Image ID="img2" runat="server" alt="Slide 2" ImageUrl="~/img/DeluxeBath.jpg" />
                         </div>
                     </div>
                 </div>
@@ -82,19 +123,38 @@
                 </button>
             </div>
         </div>
-        <div class="right_use">
-            <div class="card">
-                <asp:Label ID="lblpricepernight" runat="server" Text="Label"></asp:Label>
+        <div class="right_use  d-flex flex-column">
+            <div class="card card_price">
+                <div class="card-body mb-3">
+                    <h3>
+                        <asp:Label ID="lblpricepernight" runat="server" Text="RM100"></asp:Label>/Per night</h3>
+                </div>
             </div>
-            <div>
-                <asp:Label ID="lblroomcapacity" runat="server" Text="Label"></asp:Label>
-            </div>
-            <div class="card d-flex flex-column">
+            <div class="card card_capacity mb-3">
                 <div class="card-body">
-                    <asp:TextBox ID="txtcheckindate" runat="server"></asp:TextBox>
-                    <asp:TextBox ID="txtcheckoutdate" runat="server"></asp:TextBox>
-                    <asp:DropDownList ID="ddlroom" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlroom_SelectedIndexChanged" DataSourceID="Room"></asp:DropDownList>
-                    <asp:Button ID="btnbook" runat="server" Text="Booking" OnClick="btnbook_Click" />
+                    <h3>Max Capacity:
+                <asp:Label ID="lblroomcapacity" runat="server" Text="5"></asp:Label></h3>
+                </div>
+            </div>
+            <div class="card card_checkinout">
+                <div class="card-body">
+                    <h3>Book Your Appointment</h3>
+                    <div class="form-floating mt-2 mb-3">
+                        <asp:TextBox ID="txtcheckindate" runat="server" placeholder="" ClientIDMode="Static" CssClass="form-control"></asp:TextBox>
+                        <label for="txtcheckindate">Check in Date</label>
+                        <asp:Label ID="lblcheckin" runat="server" Text="" CssClass="text-danger"></asp:Label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <asp:TextBox ID="txtcheckoutdate" runat="server" placeholder="" ClientIDMode="Static" CssClass="form-control"></asp:TextBox>
+                        <label for="txtcheckoutdate">Check out Date</label>
+                        <asp:Label ID="lblcheckout" runat="server" Text="" CssClass="text-danger"></asp:Label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <asp:Label ID="lblroom" runat="server" Text="Room Type :" class="dropdown"></asp:Label>
+                        <asp:DropDownList ID="ddlroom" runat="server" AutoPostBack="True" CssClass="selectpicker" OnSelectedIndexChanged="ddlroom_SelectedIndexChanged" DataSourceID="Room" DataTextField="RoomType" DataValueField="RoomId"></asp:DropDownList>
+                        <asp:SqlDataSource ID="Room" runat="server" ConnectionString="<%$ ConnectionStrings:Room1 %>" ProviderName="<%$ ConnectionStrings:Room1.ProviderName %>" SelectCommand="SELECT [RoomId], [RoomType] FROM [Room]"></asp:SqlDataSource>
+                    </div>
+                    <asp:Button ID="btnbook" runat="server" Text="Booking" OnClick="btnbook_Click" CssClass="btn btn-primary btn_bok_room" />
                 </div>
             </div>
         </div>

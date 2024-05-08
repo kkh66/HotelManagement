@@ -69,13 +69,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
 
         /// <summary>
-        /// lblLoginerror control.
+        /// lblerrorlogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLoginerror;
+        protected global::System.Web.UI.WebControls.Label lblerrorlogin;
 
         /// <summary>
         /// txtLoginUserName control.
@@ -87,6 +87,15 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtLoginUserName;
 
         /// <summary>
+        /// lblLoginuser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLoginuser;
+
+        /// <summary>
         /// txtLoginPassword control.
         /// </summary>
         /// <remarks>
@@ -96,13 +105,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtLoginPassword;
 
         /// <summary>
-        /// checklopass control.
+        /// lblloginpass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label checklopass;
+        protected global::System.Web.UI.WebControls.Label lblloginpass;
 
         /// <summary>
         /// checremenber control.
@@ -123,13 +132,13 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.Label lblRemenber;
 
         /// <summary>
-        /// HyperLink1 control.
+        /// linkforgot control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.HyperLink linkforgot;
 
         /// <summary>
         /// CloseLogin control.

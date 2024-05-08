@@ -33,6 +33,15 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.Image img1;
 
         /// <summary>
+        /// img2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img2;
+
+        /// <summary>
         /// lblpricepernight control.
         /// </summary>
         /// <remarks>
@@ -60,6 +69,15 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtcheckindate;
 
         /// <summary>
+        /// lblcheckin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblcheckin;
+
+        /// <summary>
         /// txtcheckoutdate control.
         /// </summary>
         /// <remarks>
@@ -69,6 +87,24 @@ namespace HotelManagement
         protected global::System.Web.UI.WebControls.TextBox txtcheckoutdate;
 
         /// <summary>
+        /// lblcheckout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblcheckout;
+
+        /// <summary>
+        /// lblroom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblroom;
+
+        /// <summary>
         /// ddlroom control.
         /// </summary>
         /// <remarks>
@@ -76,6 +112,15 @@ namespace HotelManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlroom;
+
+        /// <summary>
+        /// Room control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource Room;
 
         /// <summary>
         /// btnbook control.

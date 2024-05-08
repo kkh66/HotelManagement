@@ -40,39 +40,16 @@ namespace HotelManagement
         {
             return this.Request.UserHostAddress;
         }
-        //hashing function
-        public string ComputeHash(string input, HashAlgorithm algorithm)
-        {
-            Byte[] inputBytes = Encoding.UTF8.GetBytes(input);
 
-            Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
-
-            return BitConverter.ToString(hashedBytes);
-        }
-        //generate OTP
-        protected string GenerateOTP()
-        {
-            string characters = "1234567890";
-            string otp = string.Empty;
-            for (int i = 0; i < 6; i++)
-            {
-                string character = string.Empty;
-                do
-                {
-                    int index = new Random().Next(0, characters.Length);
-                    character = characters.ToCharArray()[index].ToString();
-                } while (otp.IndexOf(character) != -1);
-                otp += character;
-            }
-            return otp;
-        }
         protected async void Loginbtn_Click(object sender, EventArgs e)
         {
 
-            string username = txtLoginUserName.Text;
-            string password = txtLoginPassword.Text;
+            string username = txtLoginUserName.Text.Trim();
+            string password = txtLoginPassword.Text.Trim();
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             string clientIp = GetIp();
-            string script = "window.onload = function() {{ myModal.show(); }};";
+            string script = "var LoginModal = new bootstrap.Modal(document.getElementById('LoginModal')); LoginModal.show();";
+
 
             if (Request.Form["cf-turnstile-response"] != null)
             {
@@ -85,82 +62,88 @@ namespace HotelManagement
 
                     if (!verifyResult.IsSuccess)
                     {
-                        lblLoginerror.Text = "There is a problem with the captcha result.";
-                        lblLoginerror.CssClass = "text-danger";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
+                        lblerrorlogin.Text = "There is a problem with the captcha result.";
+                        lblerrorlogin.CssClass = "text-danger";
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
                     }
                     else
                     {
 
-                        if (username == null && password == null)
+                        if (string.IsNullOrEmpty(username))
                         {
-                            lblLoginerror.Text = "Please enter username and password";
-                            lblLoginerror.CssClass = "text-danger";
+                            lblLoginuser.Text = "Please enter Username";
                             txtLoginUserName.CssClass = "form-control is-invalid  animate__animated animate__headShake";
-                            checklopass.Text = "Please enter password";
-                            txtLoginPassword.CssClass = "form-control is-invalid  animate__animated animate__headShake";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
-                        }
-                        else if (password == null)
-                        {
-                            checklopass.Text = "Please enter password";
-                            txtLoginPassword.CssClass = "form-control is-invalid  animate__animated animate__headShake";
-                            ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
-                        }
-                        else
-                        {
-                            string login = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString).ConnectionString;
-                            string loginquery = "select * from Customer where Username = @user AND password = @pass";
-                            SqlConnection con = new SqlConnection(login);
-                            SqlCommand cmd = new SqlCommand(loginquery, con);
-                            cmd.Parameters.AddWithValue("@user", username);
-                            cmd.Parameters.AddWithValue("@pass", ComputeHash(password, new SHA256CryptoServiceProvider()));
-                            con.Open();
-                            SqlDataReader dr = cmd.ExecuteReader();
-                            //check if user exists
-                            if (dr.HasRows)
-                            {
-                                if (checremenber.Checked)
-                                {
-                                    //30 days cookie
-                                    HttpCookie cookie = new HttpCookie("Username");
-                                    cookie.Value = username;
-                                    Response.Cookies.Add(cookie);
-                                    cookie.Expires = DateTime.Now.AddDays(30);
-                                    Response.Cookies.Add(cookie);
-                                    Response.Redirect("Home.aspx");
-                                }
-                                else
-                                {
-                                    HttpCookie cookie = new HttpCookie("Logincookie");
-                                    cookie.Expires = DateTime.Now.AddMinutes(-1);
-                                    Response.Cookies.Add(cookie);
-                                }
-
-                            }
-                            else
-                            {
-                                lblLoginerror.Text = "Invalid username or password";
-                                lblLoginerror.CssClass = "text-danger";
-                                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
-                            }
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
                         }
 
+                        if (string.IsNullOrEmpty(password))
+                        {
+                            lblloginpass.Text = "Please enter password";
+                            txtLoginPassword.CssClass = "form-control is-invalid  animate__animated animate__headShake";
+                            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
+                        }
+
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            string loginquery = "SELECT Salt, PasswordHash FROM Customer WHERE Username = @user";
+                            using (SqlCommand cmd = new SqlCommand(loginquery, connection))
+                            {
+                                cmd.Parameters.AddWithValue("@user", username);
+                                connection.Open();
+
+                                using (SqlDataReader dr = cmd.ExecuteReader())
+                                {
+                                    if (dr.Read())
+                                    {
+                                        string storedSalt = dr.GetString(dr.GetOrdinal("Salt"));
+                                        string storedHash = dr.GetString(dr.GetOrdinal("PasswordHash"));
+
+                                        string computedHash = AutoGenerator.GenerateHashedPassword(password, storedSalt);
+
+                                        if (computedHash.Equals(storedHash))
+                                        {
+                                            if (checremenber.Checked)
+                                            {
+                                                HttpCookie cookie = new HttpCookie("Username");
+                                                cookie.Value = username;
+                                                cookie.Expires = DateTime.Now.AddDays(30);
+                                                Response.Cookies.Add(cookie);
+                                            }
+                                            else
+                                            {
+                                                HttpCookie cookie = new HttpCookie("Logincookie");
+                                                cookie.Expires = DateTime.Now.AddMinutes(-1);
+                                                Response.Cookies.Add(cookie);
+                                            }
+
+                                            Response.Redirect("Home.aspx");
+                                        }
+                                        else
+                                        {
+
+                                            lblerrorlogin.Text = "Invalid username or password";
+                                            lblerrorlogin.CssClass = "text-danger";
+                                        }
+                                    }
+                                    else
+                                    {
+
+                                        lblerrorlogin.Text = "Invalid username or password";
+                                        lblerrorlogin.CssClass = "text-danger";
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 else
                 {
-                    lblLoginerror.Text = " The client response must not be null or empty.";
-                    lblLoginerror.CssClass = "text-danger";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
+                    lblerrorlogin.Text = " The client response must not be null or empty.";
+                    lblerrorlogin.CssClass = "text-danger";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
                 }
             }
-            else
-            {
-                lblLoginerror.Text = "The 'token' key is not present in the form data.";
-                lblLoginerror.CssClass = "text-danger";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", script, true);
-            }
+
         }
 
     }
