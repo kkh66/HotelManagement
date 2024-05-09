@@ -19,7 +19,7 @@ namespace HotelManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
         }
         protected void ddlroom_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -41,7 +41,19 @@ namespace HotelManagement
                 }
 
                 reader.Close();
+                string query1 = "SELECT r.Title, r.Comment, c.Username " +
+                    "FROM Review r " +
+                    "INNER JOIN Customer c ON r.CustomerID = c.CustomerID " +
+                    "WHERE r.RoomId = @RoomId";
+
+                SqlCommand command = new SqlCommand(query1, conn);
+                command.Parameters.AddWithValue("@RoomId", selectedRoomId);
+
+                SqlDataReader reader1 = command.ExecuteReader();
+                rptReviews.DataSource = reader1;
+                rptReviews.DataBind();
             }
+            
         }
         protected void btnbook_Click(object sender, EventArgs e)
         {
@@ -100,11 +112,6 @@ namespace HotelManagement
             cookie.Expires = DateTime.Now.AddDays(1);
             Response.Cookies.Add(cookie);
             Response.Redirect("ConfirmBooking.aspx");
-
-        }
-
-        protected void ReviewsRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
 
         }
     }

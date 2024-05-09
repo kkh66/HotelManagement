@@ -90,6 +90,14 @@
             width: 200px;
             border-radius: 10px;
         }
+
+        .card_viewreview {
+            width: 360px;
+            height: 200px;
+            overflow: auto;
+            margin-right: 160px;
+            margin-bottom:50px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -164,21 +172,20 @@
         <div class="card">
             test
         </div>
-        <asp:Repeater ID="ReviewsRepeater" runat="server" OnItemCommand="ReviewsRepeater_ItemCommand">
-            <HeaderTemplate>
-                <div class="reviews-container">
-            </HeaderTemplate>
-            <ItemTemplate>
-                <div class="review-card">
-                    <p><strong>Room ID:</strong> <%# Eval("RoomID") %></p>
-                    <p><strong>Customer ID:</strong> <%# Eval("CustomerID") %></p>
-                    <p><strong>Review Title:</strong> <%# Eval("ReviewTitle") %></p>
-                    <p><strong>Review Text:</strong> <%# Eval("ReviewText") %></p>
-                </div>
-            </ItemTemplate>
-            <FooterTemplate>
-                </div>
-            </FooterTemplate>
-        </asp:Repeater>
+        <div class="card card_viewreview">
+            <asp:Repeater ID="rptReviews" runat="server">
+                <HeaderTemplate>
+                    <div class="card-body">
+                </HeaderTemplate>
+                <ItemTemplate>
+
+                    <p>Customer: <%# Eval("Username") %></p>
+                    <h3>review title:<%# Eval("Title") %></h3>
+                    <p>review <%# Eval("Comment") %></p>
+                    <hr />
+                </ItemTemplate>
+                <FooterTemplate></div></FooterTemplate>
+            </asp:Repeater>
+        </div>
     </div>
 </asp:Content>
