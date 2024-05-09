@@ -23,12 +23,12 @@ namespace HotelManagement
         {
             if (!IsPostBack)
             {
-                /*HttpCookie orderCookie = Request.Cookies["Order"];
+                HttpCookie orderCookie = Request.Cookies["Order"];
                  if (orderCookie == null)
                 {
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("Home.aspx", false);
                     return;
-                }*/
+                }
 
                 string reservationId = "01853fb8-3ae6-4cdd-b6cc-d80e4ec0b043";
 
@@ -69,47 +69,21 @@ namespace HotelManagement
                         lblpaypal.Text = result.Status;
                         if (result.Status.ToString() == "COMPLETED")
                         {
-                            UpdateDatabaseWithPaymentDetails(approvalToken, "Paypal", paymentAmount);
-                            Response.Redirect("PaymentSuccesfull.aspx");
+                            UpdateDatabaseWithPaymentDetails(approvalToken, "Paypal", paymentAmount, "0", "Succesful");
+                            Response.Redirect("PaymentSuccesfull.aspx", false);
                         }
                         else
                         {
-                            Response.Redirect("PaymentFail.aspx");
+                            Response.Redirect("PaymentFail.aspx", false);
                         }
                     }
                     else
                     {
-                        Response.Redirect("PaymentFail.aspx");
+                        Response.Redirect("PaymentFail.aspx", false);
                     }
                 }
 
             }
-            string stripeSecretKey = ConfigurationManager.AppSettings["StripeSecretKey"];
-            StripeConfiguration.SetApiKey(stripeSecretKey);
-            string totalAmount = GetTotalAmountFromDatabase();
-            int amountInCents = (int)(Convert.ToDecimal(totalAmount) * 100);
-            decimal paymentstripe = decimal.Parse(totalAmount);
-            string stripeToken = Request.Form["stripeToken"];
-            var stripeChargeService = new ChargeService();
-            var chargeOptions = new ChargeCreateOptions
-            {
-                Amount = amountInCents,
-                Currency = "myr",
-                Description = "Charge for HotelRoom",
-                Source = stripeToken,
-            };
-
-            try
-            {
-                var charge = stripeChargeService.Create(chargeOptions);
-                UpdateDatabaseWithPaymentDetails(stripeToken, "Stripe", paymentstripe);
-                Response.Redirect("PaymentSuccesfull.aspx", false);
-            }
-            catch (StripeException ex)
-            {
-                System.Diagnostics.Debug.WriteLine("Payment failed with error: " + ex.Message);
-            }
-
         }
 
         protected void ddlPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -229,28 +203,65 @@ namespace HotelManagement
                 return "PaymentFail.aspx";
             }
         }
-        private void UpdateDatabaseWithPaymentDetails(string paymentId, string paymentMethod, decimal PaymentAmount)
+        private void UpdateDatabaseWithPaymentDetails(string paymentId, string paymentMethod, decimal PaymentAmount, string PaymentStatus, string Reason)
         {
             string reservationId = Request.Cookies["Order"].Value;
-
             if (!string.IsNullOrEmpty(reservationId))
             {
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
                 {
-                    string query = "INSERT INTO Payment (PaymentID, ReservationID, Date, PaymentMethod,PaymentAmount) VALUES (@PaymentID, @ReservationID, @Date, @PaymentMethod,@PaymentAmount)";
+                    string query = "INSERT INTO Payment (PaymentID, ReservationID, Date, PaymentMethod, PaymentAmount, PaymentStatus,Reason) VALUES (@PaymentID, @ReservationID, @Date, @PaymentMethod, @PaymentAmount, @PaymentStatus,@Reason)";
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@PaymentID", paymentId);
                     cmd.Parameters.AddWithValue("@ReservationID", reservationId);
                     cmd.Parameters.AddWithValue("@Date", DateTime.Now);
                     cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
                     cmd.Parameters.AddWithValue("@PaymentAmount", Convert.ToDecimal(PaymentAmount));
+                    cmd.Parameters.AddWithValue("@PaymentStatus", Convert.ToInt32(PaymentStatus));
+                    cmd.Parameters.AddWithValue("@Reason", Reason);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
-            //HttpCookie myCookie = new HttpCookie("Order");
-            //myCookie.Expires = DateTime.Now.AddDays(-1d);
-            //Response.Cookies.Add(myCookie);
+            HttpCookie myCookie = new HttpCookie("Order");
+            myCookie.Expires = DateTime.Now.AddDays(-1d);
+            Response.Cookies.Add(myCookie);
+        }
+        //pay for the stripe
+        protected async void Btnpaystripe_Click(object sender, EventArgs e)
+        {
+            string stripeSecretKey = ConfigurationManager.AppSettings["StripeSecretKey"];
+            StripeConfiguration.SetApiKey(stripeSecretKey);
+            string totalAmount = GetTotalAmountFromDatabase();
+            int amountInCents = (int)(Convert.ToDecimal(totalAmount) * 100);
+            decimal paymentstripe = decimal.Parse(totalAmount);
+            string stripeToken = Request.Form["stripeToken"];
+            var stripeChargeService = new ChargeService();
+            var chargeOptions = new ChargeCreateOptions
+            {
+                Amount = amountInCents,
+                Currency = "myr",
+                Description = "Charge for HotelRoom",
+                Source = stripeToken,
+            };
+
+            try
+            {
+                var charge = stripeChargeService.Create(chargeOptions);
+                UpdateDatabaseWithPaymentDetails(stripeToken, "Stripe", Convert.ToDecimal(totalAmount), "0","Succesful");
+                Response.Redirect("PaymentSuccesfull.aspx", false);
+            }
+            catch (StripeException ex)
+            {
+                UpdateDatabaseWithPaymentDetails(stripeToken, "Stripe", Convert.ToDecimal(totalAmount), "1", ex.Message);
+                Response.Redirect("PaymentFail.aspx", false);
+                System.Diagnostics.Debug.WriteLine("Payment failed with error: " + ex.Message);
+                
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("An unexpected error occurred: " + ex.Message);
+            }
         }
     }
 }

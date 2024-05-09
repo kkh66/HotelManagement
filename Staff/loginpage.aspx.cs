@@ -21,20 +21,17 @@ namespace HotelManagement.Staff
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             string staffname = txtuser.Text.Trim();
             string staffpassword = txtpassword.Text.Trim();
-            bool hasEmptyFields = false;
 
             if (string.IsNullOrEmpty(staffname))
             {
                 lbluser.Text = "Username is required";
-                txtuser.CssClass += " is-invalid animate__animated animate__headShake";
-                hasEmptyFields = true;
+                txtuser.CssClass = "form-control is-invalid animate__animated animate__animated.animate__delay-5s animate__headShake";
             }
 
             if (string.IsNullOrEmpty(staffpassword))
             {
                 lblLogin.Text = "Password is required";
-                txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
-                hasEmptyFields = true;
+                txtpassword.CssClass = "form-control is-invalid animate__animated animate__headShake";
             }
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -66,10 +63,8 @@ namespace HotelManagement.Staff
                                 lblerror.CssClass = "text-danger";
                                 txtuser.Text = "";
                                 txtpassword.Text = "";
-                                txtuser.CssClass += "is-invalid animate__animated animate__headShake";
-                                txtpassword.CssClass += "is-invalid animate__animated animate__headShake";
-                                txtuser.CssClass = "is-invalid animate__animated animate__headShake";
-                                txtpassword.CssClass = "is-invalid animate__animated animate__headShake";
+                                txtuser.CssClass += " is-invalid animate__animated animate__headShake";
+                                txtpassword.CssClass += " is-invalid animate__animated animate__headShake";
                             }
                         }
                     }

@@ -35,12 +35,12 @@
             <h2>Login Staff</h2>
             <asp:Label ID="lblerror" runat="server" Text=""></asp:Label>
             <div class="form-floating mb-4 mt-5 custom_login_text">
-                <asp:TextBox ID="txtuser" runat="server" CssClass="form-control" placeholder=""></asp:TextBox>
+                <asp:TextBox ID="txtuser" runat="server" CssClass="form-control " placeholder=""  ClientIDMode="Static"></asp:TextBox>
                 <label for="txtuser">Username</label>
                 <asp:Label ID="lbluser" runat="server" CssClass="text-danger" Text="" ClientIDMode="Static"></asp:Label>
             </div>
             <div class="form-floating mb-4 custom_login_text">
-                <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""></asp:TextBox>
+                <asp:TextBox ID="txtpassword" runat="server" TextMode="Password" CssClass="form-control" placeholder=""  ClientIDMode="Static"></asp:TextBox>
                 <label for="txtpassword">Password</label>
                 <asp:Label ID="lblLogin" runat="server" Text="" CssClass="text-danger" ClientIDMode="Static"></asp:Label>
             </div>

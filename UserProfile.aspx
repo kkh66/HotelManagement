@@ -171,14 +171,9 @@
                     </div>
                 </div>
                 <div class="tab-panel fade" id="order" role="tabpanel">
-                    <asp:GridView ID="GridView1" runat="server" DataSourceID="Booking"></asp:GridView>
-                    <asp:SqlDataSource ID="Booking" runat="server"></asp:SqlDataSource>
+                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
                 </div>
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f31a4cc2de2eb64e2b2cb596dcbe05ead0a2aae
         </div>
     </section>
 </asp:Content>

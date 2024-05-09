@@ -19,12 +19,25 @@ namespace HotelManagement.Admin
 
         protected void btnlogin_Click(object sender, EventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString; 
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             string username = txtloginuser.Text.Trim();
             string password = txtloginpassword.Text.Trim();
-            if(string.IsNullOrEmpty(username))
+            bool hasEmptyFields = false;
+
+            if (string.IsNullOrEmpty(username))
             {
-                
+                lbluser.Text = "Username is required";
+                lbluser.CssClass = "text-danger";
+                txtloginuser.CssClass = "form-control is-invalid animate__animated animate__headShake";
+                hasEmptyFields = true;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                lblpassword.Text = "Password cannot be empty";
+                lblpassword.CssClass= "text-danger";
+                txtloginpassword.CssClass = "form-control is-invalid animate__animated animate__headShake";
+                hasEmptyFields = true;
             }
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -60,6 +73,8 @@ namespace HotelManagement.Admin
                             {
                                 lblerror.Text = "Invalid username or password";
                                 lblerror.CssClass = "text-danger";
+                                txtloginuser.CssClass += " is-invalid animate__animated animate__headShake";
+                                txtloginpassword.CssClass += " is-invalid animate__animated animate__headShake";
                             }
                         }
 

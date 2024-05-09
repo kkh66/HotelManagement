@@ -19,7 +19,6 @@ namespace HotelManagement
         string browserChallengeToken = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
             HttpCookie cookie = Request.Cookies["Username"];
             //check if user is logged in
             if (cookie != null && cookie.Value != null)

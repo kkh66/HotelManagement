@@ -60,12 +60,12 @@
         <div class="card-body d-flex flex-column full-height">
             <h3 class="mb-4">Login</h3>
             <asp:Label ID="lblerror" runat="server" Text=""></asp:Label>
-            <div class="mb-4 form-floating text_login">
+            <div class="mb-5 form-floating text_login">
                 <asp:TextBox ID="txtloginuser" runat="server" ClientIDMode="Static" placeholder="" CssClass="form-control"></asp:TextBox>
                 <label for="txtloginuser">UserName</label>
                 <asp:Label ID="lbluser" runat="server" Text=""></asp:Label>
             </div>
-            <div class="mb-4 form-floating text_login">
+            <div class="mb-5 form-floating text_login">
                 <asp:TextBox ID="txtloginpassword" runat="server" TextMode="Password" placeholder="" ClientIDMode="Static" CssClass="form-control"></asp:TextBox>
                 <label for="txtloginpassword">Password</label>
                 <asp:Label ID="lblpassword" runat="server" Text=""></asp:Label>

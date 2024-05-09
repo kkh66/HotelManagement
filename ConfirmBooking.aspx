@@ -69,7 +69,7 @@
                         <div id="card-element"></div>
                         <div id="card-errors" class="text-danger" role="alert"></div>
                         <hr />
-                        <button type="submit" class="btn">Pay</button>
+                        <asp:Button ID="Btnpaystripe" runat="server" Text="Pay" OnClick="Btnpaystripe_Click" />
                         <input type="hidden" id="stripeTokenInput" name="stripeToken" />
                     </div>
                 </div>
@@ -132,7 +132,8 @@
                     } else {
                         var tokenInput = document.getElementById('stripeTokenInput');
                         tokenInput.value = result.token.id;
-                        form.submit();
+                        __doPostBack('<%=Btnpaystripe.UniqueID%>', '');
+                        
                     }
                 });
             });
