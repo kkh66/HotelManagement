@@ -175,7 +175,7 @@
         <div class="card card_viewreview">
             <asp:Repeater ID="rptReviews" runat="server">
                 <HeaderTemplate>
-                    <div class="card-body">
+                    <div class="">
                 </HeaderTemplate>
                 <ItemTemplate>
 
@@ -184,7 +184,7 @@
                     <p>review <%# Eval("Comment") %></p>
                     <hr />
                 </ItemTemplate>
-                <FooterTemplate></div></FooterTemplate>dw
+                <FooterTemplate></div></FooterTemplate>
             </asp:Repeater>
         </div>
     </div>

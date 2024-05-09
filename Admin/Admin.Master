@@ -23,13 +23,14 @@
     <form id="form1" runat="server">
         <header>
             <div class="navbar container-fluid d-flex justify-content-between nav_custom">
+                <div runat="server" visible="false">
                 <button class="btn btn-primary btn_offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu">
                     <i class="fa-solid fa-bars fa-xl"></i>
-                </button>
+                </button></div>
                 <a class="navbar-brand mx-auto logo_use" href="#">
                     <i class="fa-solid fa-hotel"></i>&nbsp; HOTEL KNN
                 </a>
-                <div class="dropdown">
+                <div class="dropdown" runat="server" visible="false">
                     <button class="dropdown-toggle ddl_customuser" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <asp:Image ID="imgAdm" runat="server" ImageUrl="~/img/Admin.jpg" CssClass="profileimg" />&nbsp;    
                             <asp:Label ID="lbladminname" runat="server" Text="Username"></asp:Label>

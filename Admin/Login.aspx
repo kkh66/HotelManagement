@@ -3,7 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         body {
-            background-image: linear-gradient(6deg, #0b0b88, #3d10a8, #6216ca, #861dec) !important;
+            background-image: url('/img/loginadmin.jpg');
+            background-size: cover;
         }
 
         footer {
@@ -62,12 +63,12 @@
             <div class="mb-4 form-floating text_login">
                 <asp:TextBox ID="txtloginuser" runat="server" ClientIDMode="Static" placeholder="" CssClass="form-control"></asp:TextBox>
                 <label for="txtloginuser">UserName</label>
-                <asp:Label ID="lbluser" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lbluser" runat="server" Text=""></asp:Label>
             </div>
             <div class="mb-4 form-floating text_login">
                 <asp:TextBox ID="txtloginpassword" runat="server" TextMode="Password" placeholder="" ClientIDMode="Static" CssClass="form-control"></asp:TextBox>
                 <label for="txtloginpassword">Password</label>
-                <asp:Label ID="lblpassword" runat="server" Text="Label"></asp:Label>
+                <asp:Label ID="lblpassword" runat="server" Text=""></asp:Label>
             </div>
             <asp:Button ID="btnlogin" runat="server" Text="Login" OnClick="btnlogin_Click" CssClass="btn btn-primary btn_login" />
         </div>

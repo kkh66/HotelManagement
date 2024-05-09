@@ -132,6 +132,7 @@
     <Content Include="img\about-2.jpg" />
     <Content Include="img\about-bg.jpg" />
     <Content Include="img\Admin.jpg" />
+    <Content Include="img\adminlogin.jpg" />
     <Content Include="img\BG-RegisterHotel.png" />
     <Content Include="img\carosel-1.png" />
     <Content Include="img\carosel-2.png" />
@@ -141,6 +142,7 @@
     <Content Include="img\DeluxeBath.jpg" />
     <Content Include="img\DeluxeRoom.jpg" />
     <Content Include="img\famaily.jpg" />
+    <Content Include="img\loginadmin.jpg" />
     <Content Include="img\Luxurysuite.jpg" />
     <Content Include="img\RegisterHotel.png" />
     <Content Include="img\Stafflogin.jpg" />

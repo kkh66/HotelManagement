@@ -164,13 +164,14 @@
 .card_login {
     border-radius: 35px;
     height: 300px;
-    width: 300px;
+    width: 400px;
     position: relative;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
+    background-color: rgba(16, 25, 44, 0.46);
+    backdrop-filter: blur(3px) saturate(76%);
     padding: 5px;
+    color:white;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
-    box-shadow: 0 0 3px 0 rgba(255, 255, 255, 0.7);
 }
 
     .card_login h3 {
