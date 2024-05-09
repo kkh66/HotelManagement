@@ -102,5 +102,10 @@ namespace HotelManagement
             Response.Redirect("ConfirmBooking.aspx");
 
         }
+
+        protected void ReviewsRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
     }
 }

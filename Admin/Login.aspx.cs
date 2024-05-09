@@ -22,6 +22,10 @@ namespace HotelManagement.Admin
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString; 
             string username = txtloginuser.Text.Trim();
             string password = txtloginpassword.Text.Trim();
+            if(string.IsNullOrEmpty(username))
+            {
+                
+            }
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();

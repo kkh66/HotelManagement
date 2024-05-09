@@ -48,7 +48,7 @@ namespace HotelManagement
                             lblroomtype.Text = reader["RoomID"].ToString();
                             lblcheckin.Text = "Check-in Date: " + ((DateTime)reader["CheckIndate"]).ToString("dd-MM-yyyy");
                             lblcheckout.Text = "Check-out Date: " + ((DateTime)reader["CheckOutdate"]).ToString("dd-MM-yyyy");
-                            lbltotalprice.Text = "Total Price: " + reader["TotalPrice"].ToString();
+                            lbltotalprice.Text = reader["TotalPrice"].ToString();
                             ReservedRoomNumber.Text = "Reserved Room Number: " + reader["Checkinout"].ToString();
                         }
 
@@ -140,7 +140,8 @@ namespace HotelManagement
             {
                 return "";
             }
-            string reservationId = Request.Cookies["Order"].Value;
+            //string reservationId = Request.Cookies["Order"].Value;
+            string reservationId = "01853fb8-3ae6-4cdd-b6cc-d80e4ec0b043";
             string totalAmount = "";
 
             if (!string.IsNullOrEmpty(reservationId))
@@ -157,7 +158,7 @@ namespace HotelManagement
 
             return totalAmount;
         }
-       
+
         public async static Task<PayPalHttp.HttpResponse> captureOrder(string token)
         {
             var request = new OrdersCaptureRequest(token);

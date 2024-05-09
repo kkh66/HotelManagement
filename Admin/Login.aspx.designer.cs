@@ -33,6 +33,15 @@ namespace HotelManagement.Admin
         protected global::System.Web.UI.WebControls.TextBox txtloginuser;
 
         /// <summary>
+        /// lbluser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbluser;
+
+        /// <summary>
         /// txtloginpassword control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace HotelManagement.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtloginpassword;
+
+        /// <summary>
+        /// lblpassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpassword;
 
         /// <summary>
         /// btnlogin control.

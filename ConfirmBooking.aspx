@@ -10,10 +10,11 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f0e6cc;
         }
 
         .separator {
-            border-left: 4px solid #000;
+            border-left: 5px solid #000;
             height: 100%;
             margin-left: 10px;
             margin-right: 10px;
@@ -26,23 +27,36 @@
         }
 
         .card_booking_confirm {
+            background-color: #d4d2cd;
         }
 
             .card_booking_confirm .card-header {
                 background-color: transparent;
                 border: 0;
                 font-size: 40px;
-                text-align: right;
+                text-align: center;
             }
 
         .custom_using_pay {
-            width: 300px;
+            width: 400px;
         }
+
+            .custom_using_pay h2 {
+                font-weight: 300;
+            }
+
+            .custom_using_pay button {
+                border: solid 1px;
+                width: 300px;
+            }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class=" d-flex justify-content-center align-content-center">
+
         <div class="custom_using_pay">
+            <h2>COMPLETE BOOKING</h2>
+            <h4><strong>PAYMENT INFORMATION</strong></h4>
             <asp:DropDownList ID="ddlPaymentMethod" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPaymentMethod_SelectedIndexChanged" CssClass="selectpicker">
                 <asp:ListItem Value="CreditCard" Selected="True">Credit Card</asp:ListItem>
                 <asp:ListItem Value="PayPal">PayPal</asp:ListItem>
@@ -55,6 +69,7 @@
                     <div>
                         <div id="card-element"></div>
                         <div id="card-errors" class="text-danger" role="alert"></div>
+                        <hr />
                         <button type="submit" class="btn">Pay</button>
                         <input type="hidden" id="stripeTokenInput" name="stripeToken" />
                     </div>
@@ -65,6 +80,7 @@
                     <h5 class="card-title">PayPal Payment</h5>
                     <p class="card-text">You will be redirected to PayPal to complete the payment.</p>
                     <asp:Label ID="lblpaypal" runat="server" Text=""></asp:Label>
+                    <hr />
                     <asp:Button ID="BtnPaypal" runat="server" Text="Button" OnClick="BtnPaypal_Click" CssClass="" />
                 </div>
             </asp:Panel>
@@ -72,9 +88,14 @@
         <div class="separator"></div>
         <div class="card d-flex flex-column card_booking_confirm ">
             <div class="card-body d-flex flex-column">
-                <strong class="card-header">Your booking details</strong>
+                <div class="card-header">
+                    <h3><i class="fa-solid fa-hotel"></i>Hotel | KNN</h3>
+                    <strong>Your booking details</strong>
+                    <hr />
+                </div>
                 <div>
-                    <label>Room type:<br />
+                    <label>
+                        Room type:<br />
                     </label>
                     <asp:Label ID="lblroomtype" runat="server" Text="Label"></asp:Label>
                 </div>
@@ -87,6 +108,8 @@
                         <asp:Label ID="lblcheckout" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
+                <hr />
+                <label>Total Price: RM</label>
                 <asp:Label ID="lbltotalprice" runat="server" Text="Label"></asp:Label>
                 <asp:Label ID="ReservedRoomNumber" runat="server" Text="Label"></asp:Label>
             </div>

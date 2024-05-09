@@ -84,11 +84,12 @@
                 border: solid 1px;
                 border-radius: 12px;
             }
-            .btn_bok_room{
-                margin-left:50px;
-                width:200px;
-                border-radius:10px;
-            }
+
+        .btn_bok_room {
+            margin-left: 50px;
+            width: 200px;
+            border-radius: 10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -163,6 +164,21 @@
         <div class="card">
             test
         </div>
-        <asp:Repeater ID="Repeater1" runat="server"></asp:Repeater>
+        <asp:Repeater ID="ReviewsRepeater" runat="server" OnItemCommand="ReviewsRepeater_ItemCommand">
+            <HeaderTemplate>
+                <div class="reviews-container">
+            </HeaderTemplate>
+            <ItemTemplate>
+                <div class="review-card">
+                    <p><strong>Room ID:</strong> <%# Eval("RoomID") %></p>
+                    <p><strong>Customer ID:</strong> <%# Eval("CustomerID") %></p>
+                    <p><strong>Review Title:</strong> <%# Eval("ReviewTitle") %></p>
+                    <p><strong>Review Text:</strong> <%# Eval("ReviewText") %></p>
+                </div>
+            </ItemTemplate>
+            <FooterTemplate>
+                </div>
+            </FooterTemplate>
+        </asp:Repeater>
     </div>
 </asp:Content>
