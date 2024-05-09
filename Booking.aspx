@@ -184,7 +184,7 @@
                     <p>review <%# Eval("Comment") %></p>
                     <hr />
                 </ItemTemplate>
-                <FooterTemplate></div></FooterTemplate>
+                <FooterTemplate></div></FooterTemplate>dw
             </asp:Repeater>
         </div>
     </div>
