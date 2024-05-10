@@ -65,6 +65,7 @@ namespace HotelManagement.Admin
                                 }
                                 else
                                 {
+                                    Response.Redirect("Home.aspx");
                                     lblerror.Text = "You are not authorized to access this page";
                                     lblerror.CssClass = "text-danger";
                                 }

@@ -14,34 +14,61 @@ namespace HotelManagement.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*
-            if (!IsLoginPage() && Session["Login"] == null)
+            /*if (!IsPostBack)
             {
-                Response.Redirect("Login.aspx");
-            }
-            else if (Session["Login"] != null)
-            {
-                string empId = Session["Login"].ToString();
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
+                if (!IsLoginPage() && Session["Login"] == null)
                 {
-                    connection.Open();
-                    string query = "SELECT COUNT(*) FROM Employee WHERE EmpID = @EmpID";
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    divusersetting.Visible = false;
+                    divoffcanvas.Visible = false;
+                    Response.Redirect("Login.aspx");
+                }
+                else if (Session["Login"] != null)
+                {
+                    string empId = Session["Login"].ToString();
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
                     {
-                        command.Parameters.AddWithValue("@EmpID", empId);
-                        int count = (int)command.ExecuteScalar();
-
-                        if (count == 0)
+                        connection.Open();
+                        string query = "SELECT COUNT(*) FROM Employee WHERE EmpID = @EmpID";
+                        using (SqlCommand command = new SqlCommand(query, connection))
                         {
-                            Response.Redirect("Login.aspx");
+                            command.Parameters.AddWithValue("@EmpID", empId);
+                            int count = (int)command.ExecuteScalar();
+
+                            if (count == 0)
+                            {
+                                divusersetting.Visible = false;
+                                divoffcanvas.Visible = false;
+                                Response.Redirect("Login.aspx");
+                                
+                            }
+                            else
+                            {
+                                Response.Redirect("Home.aspx");
+                                divusersetting.Visible = true;
+                                divoffcanvas.Visible = true;
+                            }
                         }
                     }
-                }*/
+                }
+            }*/
+        }
+        protected void Btnlog_Click(object sender, EventArgs e)
+        {
+            if (Session["Login"] != null)
+            {
+                // Abandon the session
+                Session.Abandon();
+                // Optionally, redirect the user to another page after session is abandoned
+                Response.Redirect("Login.aspx");
+            }
         }
         //check if the page is login or not
         private bool IsLoginPage()
         {
             return Request.Url.AbsolutePath.EndsWith("Login.aspx", StringComparison.OrdinalIgnoreCase);
         }
+
+
     }
+
 }

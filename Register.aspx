@@ -183,7 +183,9 @@
                             <asp:ListItem Value="1">Male</asp:ListItem>
                             <asp:ListItem Value="2">Female</asp:ListItem>
                         </asp:DropDownList>
+                        
                     </div>
+                    <asp:Label ID="lblwarngender" runat="server" Text="" CssClass="text-danger"></asp:Label>
                     <div class="form-floating mb-2 mt-2 custom_regtext">
                         <asp:TextBox ID="txtDateofBirth" runat="server" CssClass="form-control flatpickr-input" placeholder="" ClientIDMode="Static"></asp:TextBox>
                         <label for="txtDateofBirth">Date of Birth</label>

@@ -90,7 +90,17 @@ namespace HotelManagement.Admin
             BindStaffGrid();
             ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "closeEditModal();", true);
         }
-
+        protected void gvStaff_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Edit")
+            {
+                string empID = e.CommandArgument.ToString();
+            }
+            else if (e.CommandName == "Delete")
+            {
+                string empID = e.CommandArgument.ToString();
+            }
+        }
         protected void btnDeleteConfirm_Click(object sender, EventArgs e)
         {
             string empID = hfDeleteEmpID.Value;

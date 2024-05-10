@@ -15,13 +15,31 @@ namespace HotelManagement
     {
 
         /// <summary>
-        /// HyperLink1 control.
+        /// btnBookNow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
+        protected global::System.Web.UI.WebControls.Button btnBookNow;
+
+        /// <summary>
+        /// btnDeluxe control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDeluxe;
+
+        /// <summary>
+        /// btnFamily control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFamily;
 
         /// <summary>
         /// btnluxury control.

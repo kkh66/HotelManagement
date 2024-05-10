@@ -97,6 +97,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="401page.aspx" />
     <Content Include="Admin\AddRoom.aspx" />
     <Content Include="Admin\AddStaff.aspx" />
     <Content Include="Admin\Home.aspx" />
@@ -149,7 +150,7 @@
     <Content Include="PaymentFail.aspx" />
     <Content Include="PaymentSuccesfull.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="ResetPassword.aspx" />
+    <Content Include="Reset.aspx" />
     <Content Include="Script.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -163,11 +164,17 @@
     <Content Include="Staff\Style.css" />
     <Content Include="Style.css" />
     <Content Include="testfortable.aspx" />
-    <Content Include="Testing.aspx" />
     <Content Include="UserProfile.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="401page.aspx.cs">
+      <DependentUpon>401page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="401page.aspx.designer.cs">
+      <DependentUpon>401page.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AddRoom.aspx.cs">
       <DependentUpon>AddRoom.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -269,6 +276,13 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reset.aspx.cs">
+      <DependentUpon>Reset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reset.aspx.designer.cs">
+      <DependentUpon>Reset.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Staff\Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -296,13 +310,6 @@
     </Compile>
     <Compile Include="testfortable.aspx.designer.cs">
       <DependentUpon>testfortable.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Testing.aspx.cs">
-      <DependentUpon>Testing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Testing.aspx.designer.cs">
-      <DependentUpon>Testing.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserProfile.aspx.cs">
       <DependentUpon>UserProfile.aspx</DependentUpon>

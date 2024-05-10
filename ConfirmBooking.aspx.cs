@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,8 +30,7 @@ namespace HotelManagement
                     Response.Redirect("Home.aspx", false);
                     return;
                 }
-
-                string reservationId = "01853fb8-3ae6-4cdd-b6cc-d80e4ec0b043";
+                string reservationId = Request.Cookies["Order"].Value;
 
                 if (!string.IsNullOrEmpty(reservationId))
                 {
@@ -114,8 +114,7 @@ namespace HotelManagement
             {
                 return "";
             }
-            //string reservationId = Request.Cookies["Order"].Value;
-            string reservationId = "01853fb8-3ae6-4cdd-b6cc-d80e4ec0b043";
+            string reservationId = Request.Cookies["Order"].Value;
             string totalAmount = "";
 
             if (!string.IsNullOrEmpty(reservationId))

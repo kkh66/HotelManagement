@@ -48,6 +48,7 @@
                     <div>
                         <asp:HyperLink ID="Registerlink" runat="server" NavigateUrl="~/Register.aspx" CssClass="btn btn-primary card_btn_use">Register</asp:HyperLink>
                         <asp:HyperLink ID="Loginlink" runat="server" CssClass="btn btn-primary card_btn_use" data-bs-toggle="modal" data-bs-target="#LoginModal">Login</asp:HyperLink>
+                        <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="btn" OnClick="btnLogout_Click" />
                     </div>
                 </div>
             </nav>
@@ -65,7 +66,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <asp:Label ID="lblerrorlogin" runat="server" Text="Label"></asp:Label>
+                            <asp:Label ID="lblerrorlogin" runat="server" Text="" CssClass="text-danger"></asp:Label>
                             <div class="form-floating mb-2">
                                 <asp:TextBox ID="txtLoginUserName" runat="server" CssClass="form-control" placeholder="" ClientIDMode="Static" />
                                 <label for="txtLoginUserName">User Name</label>
@@ -82,7 +83,7 @@
                                     <asp:CheckBox ID="checremenber" runat="server" CssClass="form-check-input" ClientIDMode="Static" />
                                     <asp:Label ID="lblRemenber" runat="server" CssClass="form-check-label" Text="Remenber Me for 30 days" ClientIDMode="Static" />
                                 </div>
-                                <asp:HyperLink ID="linkforgot" runat="server" NavigateUrl="~/ResetPassword.aspx">Forgot Password</asp:HyperLink>
+                                <asp:HyperLink ID="linkforgot" runat="server" NavigateUrl="~/Reset.aspx">Forgot Password</asp:HyperLink>
                             </div>
                         </div>
                         <div class="modal-footer">

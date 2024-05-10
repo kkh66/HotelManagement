@@ -2,11 +2,13 @@
 using PayPalCheckoutSdk.Orders;
 using Stripe;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Web;
@@ -19,14 +21,91 @@ namespace HotelManagement
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                HttpCookie login = Request.Cookies["Customerid"];
+                if (login != null && login.Value != null)
+                {
+                    string logincookie = login.Value.ToString();
+                    using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
+                    {
+                        connection.Open();
+                        string querylogin = "SELECT COUNT(*) FROM Customer WHERE CustomerID = @CustomerID";
+                        using (SqlCommand command = new SqlCommand(querylogin, connection))
+                        {
+                            command.Parameters.AddWithValue("@CustomerID", logincookie);
+                            int count = (int)command.ExecuteScalar();
+                            if (count == 0)
+                            {
+                                Response.Redirect("401page.aspx");
+                            }
+                            else
+                            {
+                                HttpCookie cookie = Request.Cookies["Room"];
+                                if (cookie != null && cookie.Value != null)
+                                {
+                                    string roomValue = cookie.Value;
+                                    int roomId = int.Parse(roomValue);
+                                    using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
+                                    {
+                                        SqlCommand cmd = new SqlCommand("SELECT * FROM [dbo].[Room] WHERE [RoomId] = @RoomId", conn);
+                                        cmd.Parameters.AddWithValue("@RoomId", roomId);
+                                        conn.Open();
+                                        using (SqlDataReader reader = cmd.ExecuteReader())
+                                        {
+                                            if (reader.Read())
+                                            {
 
+                                                lblroomtype.Text = reader["RoomType"].ToString();
+                                                lblroomcapacity.Text = reader["Capacity"].ToString();
+                                                lblpricepernight.Text = string.Format("RM {0:0.00}", reader["PricePerNight"]);
+                                                lbldecription.Text = reader["Description"].ToString();
+                                                HttpCookie ddlroom = Request.Cookies["Room"];
+                                                ddlroom.Value = roomId.ToString();
+                                                Response.Cookies.Add(ddlroom);
+                                            }
+                                            else
+                                            {
+                                                Response.Redirect("401page.aspx");
+                                            }
+
+                                        }
+
+                                        string queryreview = "SELECT r.Title, r.Comment, c.Username " + "FROM Review r " + "INNER JOIN Customer c ON r.CustomerID = c.CustomerID " + "WHERE r.RoomId = @RoomId";
+
+                                        SqlCommand reviewcommand = new SqlCommand(queryreview, conn);
+                                        reviewcommand.Parameters.AddWithValue("@RoomId", roomId);
+
+                                        SqlDataReader reader1 = reviewcommand.ExecuteReader();
+                                        rptReviews.DataSource = reader1;
+                                        rptReviews.DataBind();
+                                    }
+
+                                }
+                                else
+                                {
+                                    Response.Redirect("401page.aspx");
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Response.Redirect("401page.aspx");
+                }
+            }
         }
         protected void ddlroom_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedRoomId = Convert.ToInt32(ddlroom.SelectedValue);
+            HttpCookie getroomcookie = Request.Cookies["Room"];
+            getroomcookie.Value = selectedRoomId.ToString();
+            getroomcookie.Expires = DateTime.Now.AddMinutes(15);
+            Response.Cookies.Set(getroomcookie);
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
             {
-                string query = "SELECT RoomType, Capacity, PricePerNight FROM Room WHERE RoomId = @RoomId";
+                string query = "SELECT * FROM Room WHERE RoomId = @RoomId";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@RoomId", selectedRoomId);
                 conn.Open();
@@ -38,6 +117,9 @@ namespace HotelManagement
                     lblroomtype.Text = reader["RoomType"].ToString();
                     lblroomcapacity.Text = reader["Capacity"].ToString();
                     lblpricepernight.Text = string.Format("RM {0:0.00}", reader["PricePerNight"]);
+                    //img1.ImageUrl = reader["RoomImage"].ToString();
+                    //img2.ImageUrl = reader["Roomenviroment"].ToString();
+
                 }
 
                 reader.Close();
@@ -53,7 +135,7 @@ namespace HotelManagement
                 rptReviews.DataSource = reader1;
                 rptReviews.DataBind();
             }
-            
+
         }
         protected void btnbook_Click(object sender, EventArgs e)
         {
@@ -90,8 +172,7 @@ namespace HotelManagement
             string reservationId = Guid.NewGuid().ToString();
             DateTime currentTime = DateTime.Now;
             DateTime reservationExpiry = currentTime.AddHours(24);
-            //string customerId = Request.Cookies["customerId"]?.Value;
-            string customerId = "c2902bb3-18c5-41b9-98c8-7a7e1e291211";
+            string customerId = Request.Cookies["customerId"]?.Value;
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString))
             {
                 string query = "INSERT INTO Reservation (ReservationID, RoomID, CustomerID, CheckIndate, CheckOutdate,  TotalPrice, Checkinout, ReservationExpiry) " +

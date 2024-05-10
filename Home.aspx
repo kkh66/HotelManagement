@@ -73,7 +73,7 @@
             offer an unparalleled escape from the ordinary, inviting you to
             explore a subterranean world of wonders.
                 </p>
-                <asp:HyperLink ID="HyperLink1" runat="server" CssClass="btn btn-primary card_btn_use" NavigateUrl="~/BookingPage.aspx">Book Now</asp:HyperLink>
+                <asp:Button ID="btnBookNow" runat="server" CssClass="btn btn-primary card_btn_use" Text="Book Now" OnClick="btnBookNow_Click" />
             </div>
         </div>
     </section>
@@ -89,31 +89,30 @@
                         <h4>Deluxe Suite</h4>
                         <p>Well-appointed rooms designed for guests who desire a more.</p>
                     </div>
-                    <a href="BookingPage.aspx" class="btn btn-primary" style="background-color: #44484f; color: azure;">Rm399<span>/night</span></a>
+                    <asp:Button ID="btnDeluxe" runat="server" Style="background-color: #44484f; color: azure;" Text="Rm399/night" CssClass="btn btn-primary" OnClick="btnDeluxe_Click" />
                 </div>
             </div>
             <div class="room_card">
                 <img src="img/famaily.jpg" alt="room" />
                 <div class="room_card_details">
                     <div>
-                        <h4>Family Suite</h4>
+                        <h4>Connecting Rooms</h4>
                         <p>Consist of multiple rooms and a common living area.</p>
                     </div>
-                    <a href="BookingPage.aspx" class="btn btn-primary" style="background-color: #44484f; color: azure;">Rm599<span>/night</span></a>
+                    <asp:Button ID="btnFamily" runat="server" Style="background-color: #44484f; color: azure;" Text="Rm599/night" CssClass="btn btn-primary" OnClick="btnFamily_Click" />
                 </div>
             </div>
             <div class="room__card">
                 <img src="img/Luxurysuite.jpg" alt="room" />
                 <div class="room_card_details">
                     <div>
-                        <h4>Luxury Penthouse</h4>
+                        <h4>Presidential Suites</h4>
                         <p>
                             Top-tier accommodations usually on the highest floors of a
         hotel.
                         </p>
                     </div>
-                    <a href="BookingPage.aspx" class="btn btn-primary" style="background-color: #44484f; color: azure;">Rm799<span>/night</span></a>
-                    <asp:Button ID="btnluxury" runat="server" Text="Rm799/night" CssClass="btn btn-primary" OnClick="btnluxury_Click" />
+                    <asp:Button ID="btnluxury" runat="server" Style="background-color: #44484f; color: azure;" Text="Rm799/night" CssClass="btn btn-primary" OnClick="btnluxury_Click" />
                 </div>
             </div>
         </div>

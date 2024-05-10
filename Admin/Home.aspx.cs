@@ -15,57 +15,120 @@ namespace HotelManagement.Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindReservationList();
+          
+                if (!IsPostBack)
+                {
+                    if (Session["Login"] == null)
+                    {
+                        Response.Redirect("Login.aspx");
+                    }
+                    else
+                    {
+                        BindReservationList();
+                    }
+                }
+            gvReservationList.RowDataBound += gvReservationList_RowDataBound;
+
         }
-        private void BindReservationList()
+        protected void gvReservationList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Button btnCheckIn = (Button)e.Row.FindControl("btnCheckIn");
+                Button btnCheckOut = (Button)e.Row.FindControl("btnCheckOut");
+
+                DataRowView rowView = (DataRowView)e.Row.DataItem;
+                int checkInOutStatus = Convert.ToInt32(rowView["Checkinout"]);
+
+                // Check if the reservation is checked in
+                if (checkInOutStatus == 1)
+                {
+                    btnCheckIn.CssClass = "btn disabled btn-danger";
+                    btnCheckOut.CssClass = "btn btn-primary";
+                }
+                else
+                {
+                    btnCheckOut.CssClass = "btn disabled btn-danger";
+                    btnCheckIn.CssClass = "btn btn-primary";
+                }
+            }
+        }
+        protected void BindReservationList()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = @"SELECT r.ReservationID, c.Username AS CustomerName, rm.RoomType, r.CheckInDate, r.CheckOutDate, r.TotalPrice, r.ReservedRoomNumber, r.Pax
-FROM Reservation r
-JOIN Customer c ON r.CustomerID = c.CustomerID
-JOIN Room rm ON r.RoomId = rm.RoomId";
+                string query = @"SELECT r.ReservationID, c.Username AS CustomerName, ro.RoomType, r.CheckInDate, r.CheckOutDate, r.TotalPrice, r.Checkinout
+                                FROM Reservation r
+                                INNER JOIN Customer c ON r.CustomerID = c.CustomerID
+                                INNER JOIN Room ro ON r.RoomID = ro.RoomId";
+
                 SqlCommand command = new SqlCommand(query, connection);
-
-                connection.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
 
-                gvReservationList.DataSource = dataTable;
-                gvReservationList.DataBind();
+                try
+                {
+                    connection.Open();
+                    dataAdapter.Fill(dataTable);
+
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        gvReservationList.DataSource = dataTable;
+                        gvReservationList.DataBind();
+                    }
+                    else
+                    {
+                        Label1.Text = "No reservations found.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Label1.Text = "Error: " + ex.Message;
+                }
             }
         }
-        protected void btnCheckInOut_Click(object sender, EventArgs e)
+        protected void btnCheckIn_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             GridViewRow row = (GridViewRow)btn.NamingContainer;
-            string reservationId = gvReservationList.DataKeys[row.RowIndex].Value.ToString();
+            int rowIndex = row.RowIndex;
 
-            int checkinout = 0;
+            string reservationId = gvReservationList.DataKeys[rowIndex].Value.ToString();
+
             string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT Checkinout FROM Reservation WHERE ReservationID = @ReservationID";
+                string query = "UPDATE Reservation SET Checkinout = 1 WHERE ReservationID = @ReservationID";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ReservationID", reservationId);
-
-                connection.Open();
-                checkinout = Convert.ToInt32(command.ExecuteScalar());
-            }
-
-            checkinout = (checkinout == 0) ? 1 : 0;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE Reservation SET Checkinout = @Checkinout WHERE ReservationID = @ReservationID";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Checkinout", checkinout);
                 command.Parameters.AddWithValue("@ReservationID", reservationId);
 
                 connection.Open();
                 command.ExecuteNonQuery();
+                connection.Close();
+            }
+
+            BindReservationList();
+        }
+
+        protected void btnCheckOut_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            GridViewRow row = (GridViewRow)btn.NamingContainer;
+            int rowIndex = row.RowIndex;
+
+            string reservationId = gvReservationList.DataKeys[rowIndex].Value.ToString();
+
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Reservation SET Checkinout = 0 WHERE ReservationID = @ReservationID";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ReservationID", reservationId);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
             }
 
             BindReservationList();

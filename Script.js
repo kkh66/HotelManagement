@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 //Remove the error message after 3 seconds
 function removeErrorMessage() {
-    $('#lblRegError, #lblerror, #lblDateofBirth, #lblcususe, #lblpass, #lblconfitmpass, #lblmail').remove();
+    $('#lblRegError, #lblerror, #lblDateofBirth, #lblcususe, #lblpass, #lblconfitmpass, #lblmail,#lblwarngender,#lblloginpass,#lblLoginuser,#lblerrorlogin').remove();
 }
 setTimeout(removeErrorMessage, 3000);
 //Booking page check in and out

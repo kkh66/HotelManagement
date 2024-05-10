@@ -1,4 +1,5 @@
 ﻿using BitArmory.Turnstile;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,13 +20,14 @@ namespace HotelManagement
         string browserChallengeToken = null;
         protected void Page_Load(object sender, EventArgs e)
         {
-            HttpCookie cookie = Request.Cookies["Username"];
+            HttpCookie cookie = Request.Cookies["Customerid"];
             //check if user is logged in
             if (cookie != null && cookie.Value != null)
             {
                 Loginlink.Visible = false;
                 Registerlink.Visible = false;
                 Profilelink.Visible = true;
+                btnLogout.Visible = true;
             }
             else //if user is not logged in
             {
@@ -33,6 +35,7 @@ namespace HotelManagement
                 Loginbtn.Visible = true;
                 Registerlink.Visible = true;
                 Profilelink.Visible = false;
+                btnLogout.Visible = false;
             }
         }
         public string GetIp()
@@ -84,7 +87,7 @@ namespace HotelManagement
 
                         using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            string loginquery = "SELECT Salt, PasswordHash FROM Customer WHERE Username = @user";
+                            string loginquery = "SELECT Salt, Password,CustomerID FROM Customer WHERE Username = @user";
                             using (SqlCommand cmd = new SqlCommand(loginquery, connection))
                             {
                                 cmd.Parameters.AddWithValue("@user", username);
@@ -95,7 +98,8 @@ namespace HotelManagement
                                     if (dr.Read())
                                     {
                                         string storedSalt = dr.GetString(dr.GetOrdinal("Salt"));
-                                        string storedHash = dr.GetString(dr.GetOrdinal("PasswordHash"));
+                                        string storedHash = dr.GetString(dr.GetOrdinal("Password"));
+                                        string customerid = dr.GetString(dr.GetOrdinal("CustomerID"));
 
                                         string computedHash = AutoGenerator.GenerateHashedPassword(password, storedSalt);
 
@@ -103,10 +107,11 @@ namespace HotelManagement
                                         {
                                             if (checremenber.Checked)
                                             {
-                                                HttpCookie cookie = new HttpCookie("Username");
-                                                cookie.Value = username;
+                                                HttpCookie cookie = new HttpCookie("Customerid");
+                                                cookie.Value = customerid;
                                                 cookie.Expires = DateTime.Now.AddDays(30);
                                                 Response.Cookies.Add(cookie);
+                                                Response.Redirect("Home.aspx");
                                             }
                                             else
                                             {
@@ -115,13 +120,13 @@ namespace HotelManagement
                                                 Response.Cookies.Add(cookie);
                                             }
 
-                                            Response.Redirect("Home.aspx");
                                         }
                                         else
                                         {
 
                                             lblerrorlogin.Text = "Invalid username or password";
                                             lblerrorlogin.CssClass = "text-danger";
+                                            ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
                                         }
                                     }
                                     else
@@ -129,6 +134,8 @@ namespace HotelManagement
 
                                         lblerrorlogin.Text = "Invalid username or password";
                                         lblerrorlogin.CssClass = "text-danger";
+                                        ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginModal", script, true);
+
                                     }
                                 }
                             }
@@ -145,5 +152,15 @@ namespace HotelManagement
 
         }
 
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (Request.Cookies["Customerid"] != null)
+            {
+                HttpCookie cookie = new HttpCookie("Customerid");
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookie);
+            }
+            Response.Redirect("Home.aspx");
+        }
     }
 }

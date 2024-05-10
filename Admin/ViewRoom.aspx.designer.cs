@@ -96,13 +96,13 @@ namespace HotelManagement.Admin
         protected global::System.Web.UI.WebControls.Label lblPricePerNight;
 
         /// <summary>
-        /// txtRoomNumber control.
+        /// uploadimage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRoomNumber;
+        protected global::System.Web.UI.WebControls.FileUpload uploadimage;
 
         /// <summary>
         /// lblRoomNumber control.
@@ -112,6 +112,24 @@ namespace HotelManagement.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRoomNumber;
+
+        /// <summary>
+        /// uploadenviroment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload uploadenviroment;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// hfEditRoomId control.

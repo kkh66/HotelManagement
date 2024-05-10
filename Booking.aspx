@@ -96,7 +96,13 @@
             height: 200px;
             overflow: auto;
             margin-right: 160px;
-            margin-bottom:50px;
+            margin-bottom: 50px;
+        }
+
+        .card_booking_description {
+            width: 800px;
+            margin-left: 100px;
+            margin-bottom: 50px;
         }
     </style>
 </asp:Content>
@@ -169,8 +175,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-between">
-        <div class="card">
-            test
+        <div class="card card_booking_description">
+            <asp:Label ID="lbldecription" runat="server" Text="Label"></asp:Label>
         </div>
         <div class="card card_viewreview">
             <asp:Repeater ID="rptReviews" runat="server">
@@ -178,10 +184,9 @@
                     <div class="">
                 </HeaderTemplate>
                 <ItemTemplate>
-
                     <p>Customer: <%# Eval("Username") %></p>
-                    <h3>review title:<%# Eval("Title") %></h3>
-                    <p>review <%# Eval("Comment") %></p>
+                    <h3>Review title:<%# Eval("Title") %></h3>
+                    <p><%# Eval("Comment") %></p>
                     <hr />
                 </ItemTemplate>
                 <FooterTemplate></div></FooterTemplate>

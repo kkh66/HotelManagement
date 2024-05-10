@@ -132,7 +132,11 @@ namespace HotelManagement
                             txtconfirmpass.CssClass += " is-valid";
                         }
 
-
+                        if (ddlgender.SelectedValue == "0")
+                        {
+                            lblwarngender.Text = "<br/>need to choose the gender";
+                            hasEmptyFields |= true;
+                        }
                         if (string.IsNullOrEmpty(email))
                         {
                             lblmail.Text = "Email is required.";
@@ -174,6 +178,7 @@ namespace HotelManagement
                         lblerror.Text = "Registration successful!";
                         btnSubmit.CssClass = "loader";
                         btnSubmit.Text = "Loading...";
+                        Response.Redirect("Home.aspx");
                     }
                 }
                 else

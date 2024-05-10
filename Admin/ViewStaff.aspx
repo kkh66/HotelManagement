@@ -7,47 +7,36 @@
             background-color: black;
         }
 
-        .wrapper {
-            min-height: 100vh;
-            background-color: black;
-        }
 
-        /* Style the entire GridView */
         .table_view_staff {
             background-image: linear-gradient(135deg, #3B2667 10%, #BC78EC 100%) !important;
-            border-radius: 12px; /* Add rounded corners */
-            overflow: hidden; /* Ensure content doesn't overflow rounded corners */
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-            /* Style GridView headers */
             .table_view_staff th {
                 background-color: transparent;
                 color: white;
                 font-weight: bold;
             }
 
-            /* Style GridView rows */
             .table_view_staff tr {
                 background-color: transparent;
             }
 
-                /* Style selected GridView rows */
                 .table_view_staff tr.selected {
                     background-color: #3B2667;
                     color: white;
                 }
 
-            /* Style GridView cells */
             .table_view_staff td {
                 padding: 5px;
             }
 
-            /* Style GridView footer */
             .table_view_staff tfoot {
                 background-color: white;
             }
 
-            /* Style GridView pager */
             .table_view_staff .pager {
                 color: #3B2667;
                 text-align: center;
@@ -57,7 +46,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container view_staff">
         <h2>Staff List</h2>
-        <asp:GridView ID="gvStaff" runat="server" AutoGenerateColumns="False" CssClass="table table_view_staff" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2">
+        <asp:GridView ID="gvStaff" runat="server" DataKeyNames="EmpID" AutoGenerateColumns="False" CssClass="table table_view_staff" BackColor="#DEBA84" BorderColor="#DEBA84" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2">
             <Columns>
                 <asp:BoundField DataField="Username" HeaderText="Username" />
                 <asp:BoundField DataField="Name" HeaderText="Name" />
@@ -66,8 +55,8 @@
                 <asp:BoundField DataField="Gender" HeaderText="Gender" />
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick="setEditEmpID('<%# Eval("EmpID") %>')">Edit</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteEmpID('<%# Eval("EmpID") %>')">Delete</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" onclick='<%# "setEditEmpID(\"" + Eval("EmpID") + "\")" %>'>Edit</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick='<%# "setDeleteEmpID(\"" + Eval("EmpID") + "\")" %>'>Delete</button>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -87,12 +76,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Staff</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <asp:HiddenField ID="hfEditEmpID" runat="server" />
+                    <asp:HiddenField ID="hfEditEmpID" runat="server" ClientIDMode="Static" />
                     <div class="form-group">
                         <label for="editUsername">Username</label>
                         <asp:TextBox ID="txtEditUsername" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
@@ -132,12 +119,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteModalLabel">Delete Staff</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <asp:HiddenField ID="hfDeleteEmpID" runat="server" />
+                    <asp:HiddenField ID="hfDeleteEmpID" runat="server" ClientIDMode="Static" />
                     Are you sure you want to delete this staff member?
                    
                 </div>

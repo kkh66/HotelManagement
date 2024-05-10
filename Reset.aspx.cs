@@ -10,47 +10,11 @@ using System.Web.UI.WebControls;
 
 namespace HotelManagement
 {
-    public partial class ResetPassword : System.Web.UI.Page
+    public partial class Reset : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void BtnSubmit_Click(object sender, EventArgs e)
-        {
-            string otp = txtOtp.Text.Trim();
-            string newPassword = txtpassword.Text.Trim();
-            string confirmPassword = txtconfirm.Text.Trim();
-
-            bool checkmatchpassword = CallUse.passwordmatch(newPassword, confirmPassword);
-            // Check if the OTP is correct and not expired
-            if (ValidateOTP(otp) && !IsOTPExpired())
-            {
-                // Check if the new password and confirm password match
-                if (checkmatchpassword)
-                {
-                    // Generate a salt and hash the new password
-                    string salt = AutoGenerator.GenerateSalt();
-                    string hashedPassword = AutoGenerator.GenerateHashedPassword(newPassword, salt);
-
-                    // Update the user's password in the database
-                    UpdatePassword(txtusername.Text.Trim(), hashedPassword, salt);
-
-                    // Display a success message
-                    lblerror.Text = "Password reset successfully.";
-                }
-                else
-                {
-                    // Display an error message
-                    lblerror.Text = "New password and confirm password do not match.";
-                }
-            }
-            else
-            {
-                // Display an error message
-                lblerror.Text = "Invalid or expired OTP.";
-            }
         }
 
         protected void BtnSendOtp_Click(object sender, EventArgs e)
@@ -66,9 +30,11 @@ namespace HotelManagement
             {
                 string otp = AutoGenerator.GenerateOTP();
                 SendOTPEmail(email, otp);
+                UpdateOTP(username, Convert.ToInt32(otp));
 
                 divUsername.Visible = false;
                 divEmail.Visible = false;
+                BtnSendOtp.Visible = false;
 
                 divOtp.Visible = true;
                 divPassword.Visible = true;
@@ -143,6 +109,60 @@ namespace HotelManagement
                 // Handle any exceptions that occurred during email sending
                 // You can log the exception or display an error message to the user
                 lblerror.Text = "Error sending OTP email: " + ex.Message;
+            }
+        }
+        private void UpdateOTP(string username, int otp)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["Hotel"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "UPDATE Customer SET OTP = @OTP WHERE Username = @Username";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@OTP", otp);
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        protected void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            string otp = txtOtp.Text.Trim();
+            string newPassword = txtpassword.Text.Trim();
+            string confirmPassword = txtconfirm.Text.Trim();
+
+            bool checkmatchpassword = CallUse.passwordmatch(newPassword, confirmPassword);
+            // Check if the OTP is correct and not expired
+            if (ValidateOTP(otp) && !IsOTPExpired())
+            {
+                // Check if the new password and confirm password match
+                if (checkmatchpassword)
+                {
+                    // Generate a salt and hash the new password
+                    string salt = AutoGenerator.GenerateSalt();
+                    string hashedPassword = AutoGenerator.GenerateHashedPassword(newPassword, salt);
+
+                    // Update the user's password in the database
+                    UpdatePassword(txtusername.Text.Trim(), hashedPassword, salt);
+
+                    // Display a success message
+                    lblerror.Text = "Password reset successfully.";
+                }
+                else
+                {
+                    // Display an error message
+                    lblerror.Text = "New password and confirm password do not match.";
+                }
+            }
+            else
+            {
+                // Display an error message
+                lblerror.Text = "Invalid or expired OTP.";
             }
         }
     }

@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="ViewRoom.aspx.cs" Inherits="HotelManagement.Admin.ViewRoom" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function setDeleteRoomId(roomId) {
+            document.getElementById('hfDeleteRoomId').value = roomId;
+        }
+    </script>
     <style>
         body {
             background-color: black;
@@ -53,7 +58,6 @@
                                         <div class="carousel-indicators">
                                             <button type="button" data-bs-target="#Carousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
                                             <button type="button" data-bs-target="#Carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#Carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                         </div>
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
@@ -61,9 +65,6 @@
                                             </div>
                                             <div class="carousel-item">
                                                 <asp:Image ID="imgroom2" runat="server" ImageUrl="~/img/DeluxeBath.jpg" alt="Slide 2" CssClass="view_room_img" />
-                                            </div>
-                                            <div class="carousel-item">
-                                                <asp:Image ID="imgroom3" runat="server" ImageUrl="~/img/DeluxeRoom.jpg" alt="Slide 3" CssClass="view_room_img" />
                                             </div>
                                         </div>
                                         <button class="carousel-control-prev" type="button" data-bs-target="#Carousel<%# Eval("RoomId") %>" data-bs-slide="prev">
@@ -125,9 +126,12 @@
                         <asp:Label ID="lblPricePerNight" runat="server" Text=""></asp:Label>
                     </div>
                     <div class="form-floating mb-3">
-                        <asp:TextBox ID="txtRoomNumber" runat="server" CssClass="form-control" placeholder="" />
-                        <label for="txtRoomNumber">Room Number</label>
+                        Room Image:<asp:FileUpload ID="uploadimage" runat="server" />
                         <asp:Label ID="lblRoomNumber" runat="server" Text=""></asp:Label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        Room Enviroment:<asp:FileUpload ID="uploadenviroment" runat="server" />
+                        <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
                     </div>
                     <asp:HiddenField ID="hfEditRoomId" runat="server" />
                 </div>
@@ -149,7 +153,7 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Are you sure you want to delete this room?<asp:HiddenField ID="hfDeleteRoomId" runat="server" />
+                        Are you sure you want to delete this room?<asp:HiddenField ID="hfDeleteRoomId" runat="server" ClientIDMode="Static" />
                     </p>
                 </div>
                 <div class="modal-footer">

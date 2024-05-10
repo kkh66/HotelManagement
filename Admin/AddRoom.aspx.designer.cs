@@ -15,6 +15,15 @@ namespace HotelManagement.Admin
     {
 
         /// <summary>
+        /// lbltext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbltext;
+
+        /// <summary>
         /// txtroomid control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace HotelManagement.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtroomid;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// txtroomtype control.
@@ -33,6 +51,15 @@ namespace HotelManagement.Admin
         protected global::System.Web.UI.WebControls.TextBox txtroomtype;
 
         /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+
+        /// <summary>
         /// txtcapacity control.
         /// </summary>
         /// <remarks>
@@ -40,6 +67,15 @@ namespace HotelManagement.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtcapacity;
+
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
         /// txtdescription control.
@@ -51,6 +87,15 @@ namespace HotelManagement.Admin
         protected global::System.Web.UI.WebControls.TextBox txtdescription;
 
         /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+
+        /// <summary>
         /// txtPricepernight control.
         /// </summary>
         /// <remarks>
@@ -60,22 +105,31 @@ namespace HotelManagement.Admin
         protected global::System.Web.UI.WebControls.TextBox txtPricepernight;
 
         /// <summary>
-        /// RoomImage control.
+        /// Label5 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload RoomImage;
+        protected global::System.Web.UI.WebControls.Label Label5;
 
         /// <summary>
-        /// Roomenviroment control.
+        /// fileRoomImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload Roomenviroment;
+        protected global::System.Web.UI.WebControls.FileUpload fileRoomImage;
+
+        /// <summary>
+        /// fileRoomEnvironment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fileRoomEnvironment;
 
         /// <summary>
         /// Button1 control.
